@@ -18,7 +18,7 @@ func helloHandler(c *gin.Context) {
 	claims := jwt.ExtractClaims(c)
 	user, _ := c.Get(identityKey)
 	c.JSON(200, gin.H{
-		"userID":   claims[identityKey],
+		"email":    claims[identityKey],
 		"userName": user.(*models.Users).Name,
 		"text":     "Hello World.",
 	})
