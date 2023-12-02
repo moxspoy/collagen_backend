@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"log"
+	"os"
 	"strings"
 	"time"
 )
@@ -49,7 +50,7 @@ func main() {
 
 	authMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
 		Realm:       "test zone",
-		Key:         []byte("secretx_xxkey"),
+		Key:         []byte(os.Getenv("JWT_KEY")),
 		Timeout:     time.Hour,
 		MaxRefresh:  time.Hour,
 		IdentityKey: identityKey,
