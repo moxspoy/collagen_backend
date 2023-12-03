@@ -15,10 +15,10 @@ const (
 //
 //	@Summary		Check whether email or phone number exist on the database
 //	@Description	Usually this endpoint used before validate user's identity
-//	@Tags			check-credential
+//	@Tags			Auth
 //	@Accept			multipart/form-data
 //	@Produce		json
-//	@Success		200	{object}	models.AppConfig
+//	@Success		200	{object}	models.SuccessAPIResponseMessageOnly
 //	@Router			/auth/check-credential [post]
 //	@Param			api_key	header string	true "Api Key"
 //	@Param			credential formData string	true "Email/Phone Number"
