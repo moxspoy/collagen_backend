@@ -47,6 +47,32 @@ paths:
         is launched
       tags:
       - app-config
+  /auth/check-credential:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Usually this endpoint used before validate user's identity
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: Email/Phone Number
+        in: formData
+        name: credential
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AppConfig'
+      summary: Check whether email or phone number exist on the database
+      tags:
+      - check-credential
 securityDefinitions:
   ApiKeyAuth:
     description: Description for what is this security definition being used

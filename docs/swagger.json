@@ -49,6 +49,45 @@
                     }
                 }
             }
+        },
+        "/auth/check-credential": {
+            "post": {
+                "description": "Usually this endpoint used before validate user's identity",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "check-credential"
+                ],
+                "summary": "Check whether email or phone number exist on the database",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Email/Phone Number",
+                        "name": "credential",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.AppConfig"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
