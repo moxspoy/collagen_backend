@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"errors"
 	"flop/config/database"
 	"flop/models"
 	jwt "github.com/appleboy/gin-jwt/v2"
@@ -48,7 +49,7 @@ func GetJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 			database.DB.Where(whereClause, identityRequest.Credential).First(&users)
 
 			if len(users) <= 0 {
-				return "", jwt.ErrFailedTokenCreation
+				return "", errors.New("failed to create token because the user is not found")
 			}
 
 			user := users[0]
