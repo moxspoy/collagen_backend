@@ -1,0 +1,56 @@
+basePath: /api/v1
+definitions:
+  models.AppConfig:
+    properties:
+      id:
+        type: integer
+      key:
+        type: string
+      last_update:
+        type: string
+      value:
+        type: string
+    type: object
+host: localhost:8083
+info:
+  contact:
+    email: mnurilmanbaehaqi@gmail.com
+    name: M Nurilman Baehaqi
+    url: https://twitter.com/MOXSPOY
+  description: Web service API in Go using Gin framework.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://tos.santoshk.dev
+  title: Flop Web Service
+  version: "1.0"
+paths:
+  /app-info:
+    get:
+      consumes:
+      - application/json
+      description: This endpoint does not require token (public)
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AppConfig'
+      summary: Show application info metadata as the startup info while client app
+        is launched
+      tags:
+      - app-config
+securityDefinitions:
+  ApiKeyAuth:
+    description: Description for what is this security definition being used
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
