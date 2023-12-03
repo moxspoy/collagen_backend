@@ -8,6 +8,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// UpdateEmail godoc
+//
+//	@Summary		Update user's email
+//	@Description	Usually this endpoint used because user fill phone number first
+//	@Tags			User
+//	@Accept			multipart/form-data
+//	@Produce		json
+//	@Success		200	{object}	models.SuccessAPIResponseMessageAndCode
+//	@Router			/user/update-email [put]
+//	@Param			api_key	header string	true "Api Key"
+//	@Param			new_email formData string	true "Email that will be saved to the database"
+//	@Security		ApiKeyAuth
 func UpdateEmail(c *gin.Context) {
 	claims := jwt.ExtractClaims(c)
 	oldEmail := fmt.Sprintf("%v", claims[identityKey])

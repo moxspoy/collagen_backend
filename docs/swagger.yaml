@@ -1,0 +1,156 @@
+basePath: /api/v1
+definitions:
+  models.AppConfigResponse:
+    properties:
+      customer_friend_phone_number:
+        type: string
+      maintenance:
+        type: string
+      minimum_version:
+        type: string
+      operating_time_weekday:
+        type: string
+      operating_time_weekend:
+        type: string
+    type: object
+  models.SuccessAPIResponseMessageAndCode:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  models.SuccessAPIResponseMessageOnly:
+    properties:
+      message:
+        type: string
+    type: object
+  models.Users:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      phone_number:
+        type: string
+    type: object
+host: localhost:8083
+info:
+  contact:
+    email: mnurilmanbaehaqi@gmail.com
+    name: M Nurilman Baehaqi
+    url: https://twitter.com/MOXSPOY
+  description: Web service API in Go using Gin framework.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://tos.santoshk.dev
+  title: Flop Web Service
+  version: "1.0"
+paths:
+  /app-info:
+    get:
+      consumes:
+      - application/json
+      description: This endpoint does not require token (public)
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AppConfigResponse'
+      summary: Show application info metadata as the startup info while client app
+        is launched
+      tags:
+      - App Config
+  /auth/check-credential:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Usually this endpoint used before validate user's identity
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: Email/Phone Number
+        in: formData
+        name: credential
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessAPIResponseMessageOnly'
+      summary: Check whether email or phone number exist on the database
+      tags:
+      - Auth
+  /user/info:
+    get:
+      description: This endpoint used to fetch user's data
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Users'
+      security:
+      - ApiKeyAuth: []
+      summary: Get user object
+      tags:
+      - User
+  /user/update-email:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Usually this endpoint used because user fill phone number first
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: Email that will be saved to the database
+        in: formData
+        name: new_email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessAPIResponseMessageAndCode'
+      security:
+      - ApiKeyAuth: []
+      summary: Update user's email
+      tags:
+      - User
+securityDefinitions:
+  ApiKeyAuth:
+    description: Description for what is this security definition being used
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

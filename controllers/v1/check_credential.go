@@ -11,6 +11,17 @@ const (
 	EmailCredential = "email"
 )
 
+// CheckCredential godoc
+//
+//	@Summary		Check whether email or phone number exist on the database
+//	@Description	Usually this endpoint used before validate user's identity
+//	@Tags			Auth
+//	@Accept			multipart/form-data
+//	@Produce		json
+//	@Success		200	{object}	models.SuccessAPIResponseMessageOnly
+//	@Router			/auth/check-credential [post]
+//	@Param			api_key	header string	true "Api Key"
+//	@Param			credential formData string	true "Email/Phone Number"
 func CheckCredential(c *gin.Context) {
 
 	isPhoneNumber := c.Query("type") == EmailCredential

@@ -3,13 +3,35 @@ package main
 import (
 	"flop/config/database"
 	v1 "flop/controllers/v1"
+	"flop/docs"
 	"flop/middleware"
 	"flop/models"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
 )
 
+// @title           Flop Web Service
+// @version         1.0
+// @description     Web service API in Go using Gin framework.
+// @termsOfService  https://tos.santoshk.dev
+
+// @contact.name   M Nurilman Baehaqi
+// @contact.url    https://twitter.com/MOXSPOY
+// @contact.email  mnurilmanbaehaqi@gmail.com
+
+// @license.name  Apache 2.0
+// @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host      localhost:8083
+// @BasePath  /api/v1
+
+// @securityDefinitions.apikey	ApiKeyAuth
+// @in							header
+// @name						Authorization
+// @description				Description for what is this security definition being used
 func main() {
 	err := godotenv.Load()
 	if err != nil {
@@ -23,7 +45,9 @@ func main() {
 		log.Fatal("Migration Error:" + err.Error())
 	}
 
-	v1Router := router.Group("/v1")
+	docs.SwaggerInfo.BasePath = "/api/v1"
+	apiRouter := router.Group("/api")
+	v1Router := apiRouter.Group("/v1")
 	v1Router.Use(middleware.GuardApiKey())
 
 	v1Router.GET("/app-info", v1.GetAppInfo)
@@ -56,6 +80,7 @@ func main() {
 		userRouter.PUT("/update-email", v1.UpdateEmail)
 	}
 
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	err = router.Run("localhost:8083")
 	if err != nil {
 		log.Fatal("Error while running server")
