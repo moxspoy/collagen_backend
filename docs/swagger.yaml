@@ -1,14 +1,39 @@
 basePath: /api/v1
 definitions:
-  models.AppConfig:
+  models.AppConfigResponse:
     properties:
+      customer_friend_phone_number:
+        type: string
+      maintenance:
+        type: string
+      minimum_version:
+        type: string
+      operating_time_weekday:
+        type: string
+      operating_time_weekend:
+        type: string
+    type: object
+  models.SuccessAPIResponseMessageAndCode:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  models.SuccessAPIResponseMessageOnly:
+    properties:
+      message:
+        type: string
+    type: object
+  models.Users:
+    properties:
+      email:
+        type: string
       id:
         type: integer
-      key:
+      name:
         type: string
-      last_update:
-        type: string
-      value:
+      phone_number:
         type: string
     type: object
 host: localhost:8083
@@ -42,11 +67,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.AppConfig'
+            $ref: '#/definitions/models.AppConfigResponse'
       summary: Show application info metadata as the startup info while client app
         is launched
       tags:
-      - app-config
+      - App Config
   /auth/check-credential:
     post:
       consumes:
@@ -69,10 +94,59 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.AppConfig'
+            $ref: '#/definitions/models.SuccessAPIResponseMessageOnly'
       summary: Check whether email or phone number exist on the database
       tags:
-      - check-credential
+      - Auth
+  /user/info:
+    get:
+      description: This endpoint used to fetch user's data
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Users'
+      security:
+      - ApiKeyAuth: []
+      summary: Get user object
+      tags:
+      - User
+  /user/update-email:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Usually this endpoint used because user fill phone number first
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: Email that will be saved to the database
+        in: formData
+        name: new_email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessAPIResponseMessageAndCode'
+      security:
+      - ApiKeyAuth: []
+      summary: Update user's email
+      tags:
+      - User
 securityDefinitions:
   ApiKeyAuth:
     description: Description for what is this security definition being used

@@ -34,7 +34,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "app-config"
+                    "App Config"
                 ],
                 "summary": "Show application info metadata as the startup info while client app is launched",
                 "parameters": [
@@ -50,7 +50,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.AppConfig"
+                            "$ref": "#/definitions/models.AppConfigResponse"
                         }
                     }
                 }
@@ -66,7 +66,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "check-credential"
+                    "Auth"
                 ],
                 "summary": "Check whether email or phone number exist on the database",
                 "parameters": [
@@ -89,7 +89,85 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.AppConfig"
+                            "$ref": "#/definitions/models.SuccessAPIResponseMessageOnly"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/info": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "This endpoint used to fetch user's data",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get user object",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Users"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update-email": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used because user fill phone number first",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user's email",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Email that will be saved to the database",
+                        "name": "new_email",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.SuccessAPIResponseMessageAndCode"
                         }
                     }
                 }
@@ -97,19 +175,58 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "models.AppConfig": {
+        "models.AppConfigResponse": {
             "type": "object",
             "properties": {
+                "customer_friend_phone_number": {
+                    "type": "string"
+                },
+                "maintenance": {
+                    "type": "string"
+                },
+                "minimum_version": {
+                    "type": "string"
+                },
+                "operating_time_weekday": {
+                    "type": "string"
+                },
+                "operating_time_weekend": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SuccessAPIResponseMessageAndCode": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SuccessAPIResponseMessageOnly": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Users": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
-                "key": {
+                "name": {
                     "type": "string"
                 },
-                "last_update": {
-                    "type": "string"
-                },
-                "value": {
+                "phone_number": {
                     "type": "string"
                 }
             }
