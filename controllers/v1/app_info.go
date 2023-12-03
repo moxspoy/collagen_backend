@@ -11,10 +11,10 @@ import (
 //
 //	@Summary		Show application info metadata as the startup info while client app is launched
 //	@Description	This endpoint does not require token (public)
-//	@Tags			app-config
+//	@Tags			App Config
 //	@Accept			json
 //	@Produce		json
-//	@Success		200	{object}	models.AppConfig
+//	@Success		200	{object} models.AppConfigResponse
 //	@Router			/app-info [get]
 //	@Param			api_key	header string	true "Api Key"
 func GetAppInfo(c *gin.Context) {
