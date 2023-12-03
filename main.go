@@ -48,6 +48,7 @@ func main() {
 	userRouter.Use(authMiddleware.MiddlewareFunc())
 	{
 		userRouter.GET("/info", v1.GetUserInfo)
+		userRouter.PUT("/update-email", v1.UpdateEmail)
 	}
 
 	err = router.Run("localhost:8083")
