@@ -4,6 +4,7 @@ import (
 	"flop/config/database"
 	v1 "flop/controllers/v1"
 	"flop/middleware"
+	"flop/models"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"log"
@@ -17,6 +18,10 @@ func main() {
 
 	router := gin.Default()
 	database.ConnectDatabase()
+	err = database.DB.AutoMigrate(&models.Users{}, &models.AppConfig{})
+	if err != nil {
+		log.Fatal("Migration Error:" + err.Error())
+	}
 
 	v1Router := router.Group("/v1")
 	v1Router.Use(middleware.GuardApiKey())
