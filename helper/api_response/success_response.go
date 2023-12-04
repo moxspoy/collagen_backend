@@ -6,9 +6,10 @@ import (
 	"net/http"
 )
 
-func GenerateSuccessResponse(c *gin.Context, message string) {
+func GenerateSuccessResponse(c *gin.Context, message string, data any) {
 	c.IndentedJSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": message,
+		"data":    data,
 	})
 }

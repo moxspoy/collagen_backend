@@ -50,7 +50,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.AppConfigResponse"
+                            "$ref": "#/definitions/database_model.AppConfigResponse"
                         }
                     }
                 }
@@ -68,7 +68,7 @@ const docTemplate = `{
                 "tags": [
                     "Auth"
                 ],
-                "summary": "Check whether email or phone number exist on the database",
+                "summary": "Check whether email or phone number exist on the database_model",
                 "parameters": [
                     {
                         "type": "string",
@@ -89,7 +89,195 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api_responses.CheckCredentialResponse"
+                            "$ref": "#/definitions/api_response_model.CheckCredentialResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/refresh-token": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Use this endpoint to refresh token",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Refresh token",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.JwtResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/sign-up": {
+            "post": {
+                "description": "This endpoint used to register user to the platform",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Sign up endpoint",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "app_build_version",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "app_name_version",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "credential",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "device_identifier",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "device_model",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "email",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "os_version",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "phone_number",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "platform",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/validate-identity": {
+            "post": {
+                "description": "This endpoint used to check user in the platform (for login)",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Validate identity is like for login",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "app_build_version",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "app_name_version",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "credential",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "device_identifier",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "device_model",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "os_version",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "platform",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "request_id",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.JwtResponse"
                         }
                     }
                 }
@@ -123,7 +311,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Users"
+                            "$ref": "#/definitions/database_model.Users"
                         }
                     }
                 }
@@ -157,7 +345,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "Email that will be saved to the database",
+                        "description": "Email that will be saved to the database_model",
                         "name": "new_email",
                         "in": "formData",
                         "required": true
@@ -167,7 +355,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.SuccessAPIResponseMessageAndCode"
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
                         }
                     }
                 }
@@ -175,7 +363,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "api_responses.CheckCredentialResponse": {
+        "api_response_model.CheckCredentialResponse": {
             "type": "object",
             "properties": {
                 "email": {
@@ -201,7 +389,33 @@ const docTemplate = `{
                 }
             }
         },
-        "models.AppConfigResponse": {
+        "api_response_model.JwtResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "expire": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "api_response_model.SuccessAPIResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {},
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "database_model.AppConfigResponse": {
             "type": "object",
             "properties": {
                 "customer_friend_phone_number": {
@@ -221,18 +435,7 @@ const docTemplate = `{
                 }
             }
         },
-        "models.SuccessAPIResponseMessageAndCode": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.Users": {
+        "database_model.Users": {
             "type": "object",
             "properties": {
                 "email": {

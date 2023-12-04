@@ -1,4 +1,4 @@
-package models
+package database_model
 
 type AppConfig struct {
 	Id         uint   `json:"id"`

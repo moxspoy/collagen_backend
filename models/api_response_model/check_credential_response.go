@@ -1,4 +1,4 @@
-package api_responses
+package api_response_model
 
 type CheckCredentialResponse struct {
 	Email           string `json:"email"`

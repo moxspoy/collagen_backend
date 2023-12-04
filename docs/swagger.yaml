@@ -1,6 +1,6 @@
 basePath: /api/v1
 definitions:
-  api_responses.CheckCredentialResponse:
+  api_response_model.CheckCredentialResponse:
     properties:
       email:
         type: string
@@ -17,7 +17,24 @@ definitions:
       phone_number:
         type: string
     type: object
-  models.AppConfigResponse:
+  api_response_model.JwtResponse:
+    properties:
+      code:
+        type: integer
+      expire:
+        type: string
+      token:
+        type: string
+    type: object
+  api_response_model.SuccessAPIResponse:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+  database_model.AppConfigResponse:
     properties:
       customer_friend_phone_number:
         type: string
@@ -30,14 +47,7 @@ definitions:
       operating_time_weekend:
         type: string
     type: object
-  models.SuccessAPIResponseMessageAndCode:
-    properties:
-      code:
-        type: integer
-      message:
-        type: string
-    type: object
-  models.Users:
+  database_model.Users:
     properties:
       email:
         type: string
@@ -89,7 +99,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.AppConfigResponse'
+            $ref: '#/definitions/database_model.AppConfigResponse'
       summary: Show application info metadata as the startup info while client app
         is launched
       tags:
@@ -116,8 +126,125 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api_responses.CheckCredentialResponse'
-      summary: Check whether email or phone number exist on the database
+            $ref: '#/definitions/api_response_model.CheckCredentialResponse'
+      summary: Check whether email or phone number exist on the database_model
+      tags:
+      - Auth
+  /auth/refresh-token:
+    post:
+      description: Use this endpoint to refresh token
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.JwtResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Refresh token
+      tags:
+      - Auth
+  /auth/sign-up:
+    post:
+      consumes:
+      - multipart/form-data
+      description: This endpoint used to register user to the platform
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - in: formData
+        name: app_build_version
+        type: integer
+      - in: formData
+        name: app_name_version
+        type: string
+      - in: formData
+        name: credential
+        type: string
+      - in: formData
+        name: device_identifier
+        type: string
+      - in: formData
+        name: device_model
+        type: string
+      - in: formData
+        name: email
+        type: string
+      - in: formData
+        name: name
+        type: string
+      - in: formData
+        name: os_version
+        type: string
+      - in: formData
+        name: phone_number
+        type: string
+      - in: formData
+        name: platform
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      summary: Sign up endpoint
+      tags:
+      - Auth
+  /auth/validate-identity:
+    post:
+      consumes:
+      - multipart/form-data
+      description: This endpoint used to check user in the platform (for login)
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - in: formData
+        name: app_build_version
+        type: integer
+      - in: formData
+        name: app_name_version
+        type: string
+      - in: formData
+        name: credential
+        type: string
+      - in: formData
+        name: device_identifier
+        type: string
+      - in: formData
+        name: device_model
+        type: string
+      - in: formData
+        name: os_version
+        type: string
+      - in: formData
+        name: platform
+        type: string
+      - in: formData
+        name: request_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.JwtResponse'
+      summary: Validate identity is like for login
       tags:
       - Auth
   /user/info:
@@ -135,7 +262,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.Users'
+            $ref: '#/definitions/database_model.Users'
       security:
       - ApiKeyAuth: []
       summary: Get user object
@@ -152,7 +279,7 @@ paths:
         name: api_key
         required: true
         type: string
-      - description: Email that will be saved to the database
+      - description: Email that will be saved to the database_model
         in: formData
         name: new_email
         required: true
@@ -163,7 +290,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.SuccessAPIResponseMessageAndCode'
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
       security:
       - ApiKeyAuth: []
       summary: Update user's email

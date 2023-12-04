@@ -2,11 +2,11 @@ package users
 
 import (
 	"flop/config/database"
-	"flop/models"
+	"flop/models/database_model"
 )
 
-func GetOneUserByEmail(email string) models.Users {
-	var user models.Users
+func GetOneUserByEmail(email string) database_model.Users {
+	var user database_model.Users
 	database.DB.Where("email = ?", email).First(&user)
 	return user
 }
