@@ -3,7 +3,8 @@ package middleware
 import (
 	"errors"
 	"flop/config/database"
-	"flop/models"
+	"flop/models/api_request_model"
+	"flop/models/database_model"
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"os"
@@ -21,27 +22,29 @@ func GetJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 		MaxRefresh:  time.Hour,
 		IdentityKey: JwtIdentityKey,
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
-			if v, ok := data.(*models.Users); ok {
+			if v, ok := data.(*database_model.Users); ok {
 				return jwt.MapClaims{
-					JwtIdentityKey: v.Email,
+					"email":  v.Email,
+					"userId": v.Id,
 				}
 			}
 			return jwt.MapClaims{}
 		},
 		IdentityHandler: func(c *gin.Context) interface{} {
 			claims := jwt.ExtractClaims(c)
-			return &models.Users{
-				Email: claims[JwtIdentityKey].(string),
+			return &database_model.Users{
+				Email: claims["email"].(string),
+				Id:    uint(claims["userId"].(float64)),
 			}
 		},
 		Authenticator: func(c *gin.Context) (interface{}, error) {
-			var identityRequest models.IdentityRequest
+			var identityRequest api_request_model.ValidateIdentityRequest
 			if err := c.ShouldBind(&identityRequest); err != nil {
 				return "", jwt.ErrMissingLoginValues
 			}
 
 			isPhoneNumber := !(strings.Contains(identityRequest.Credential, "@"))
-			var users []models.Users
+			var users []database_model.Users
 			var whereClause = "email = ?"
 			if isPhoneNumber {
 				whereClause = "phone_number = ?"
@@ -61,7 +64,7 @@ func GetJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 			return nil, jwt.ErrFailedAuthentication
 		},
 		Authorizator: func(data interface{}, c *gin.Context) bool {
-			if v, ok := data.(*models.Users); ok && v.Name == "admin" {
+			if v, ok := data.(*database_model.Users); ok && v.Name == "admin" {
 				return true
 			}
 
