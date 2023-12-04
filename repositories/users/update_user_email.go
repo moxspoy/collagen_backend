@@ -2,9 +2,11 @@ package users
 
 import (
 	"flop/config/database"
-	"flop/models"
+	"flop/models/database_model"
 )
 
-func UpdateUserEmail(oldEmail string, newEmail string) {
-	database.DB.Model(&models.Users{}).Where("email = ?", oldEmail).UpdateColumn("email", newEmail)
+func UpdateUserEmail(user *database_model.Users, oldEmail string, newEmail string) {
+	database.DB.Model(&user).Where("email = ?", oldEmail).UpdateColumn("email", newEmail)
+	newUser := GetOneUserByEmail(newEmail)
+	user.Id = newUser.Id
 }

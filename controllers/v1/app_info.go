@@ -2,7 +2,7 @@ package v1
 
 import (
 	"flop/config/database"
-	"flop/models"
+	"flop/models/database_model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -14,11 +14,11 @@ import (
 //	@Tags			App Config
 //	@Accept			json
 //	@Produce		json
-//	@Success		200	{object} models.AppConfigResponse
+//	@Success		200	{object} database_model.AppConfigResponse
 //	@Router			/app-info [get]
 //	@Param			api_key	header string	true "Api Key"
 func GetAppInfo(c *gin.Context) {
-	var appConfig []models.AppConfig
+	var appConfig []database_model.AppConfig
 	database.DB.Find(&appConfig)
 
 	response := make(map[string]interface{})
