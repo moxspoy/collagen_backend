@@ -3,6 +3,7 @@ package v1
 import (
 	"flop/config/database"
 	"flop/models"
+	"flop/models/api_responses"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -18,7 +19,7 @@ const (
 //	@Tags			Auth
 //	@Accept			multipart/form-data
 //	@Produce		json
-//	@Success		200	{object}	models.SuccessAPIResponseMessageOnly
+//	@Success		200	{object}	api_responses.CheckCredentialResponse
 //	@Router			/auth/check-credential [post]
 //	@Param			api_key	header string	true "Api Key"
 //	@Param			credential formData string	true "Email/Phone Number"
@@ -40,14 +41,24 @@ func CheckCredential(c *gin.Context) {
 		whereClause = "phone_number = ?"
 	}
 	database.DB.Where(whereClause, credential).First(&users)
+	isUserExist := len(users) > 0
 
-	if len(users) <= 0 {
-		c.IndentedJSON(http.StatusInternalServerError, gin.H{
-			"message": "User not exist",
-		})
-		return
+	user := models.Users{}
+	if isUserExist {
+		user = users[0]
 	}
-	c.IndentedJSON(http.StatusOK, gin.H{
-		"message": "User exist",
-	})
+	email := user.Email
+	phone := user.PhoneNumber
+
+	response := api_responses.CheckCredentialResponse{
+		Email:           email,
+		PhoneNumber:     phone,
+		IsUserExist:     isUserExist,
+		IsEmailVerified: user.IsPhoneVerified(),
+		IsPhoneVerified: user.IsPhoneVerified(),
+		IsPinRegistered: user.IsPinRegistered(),
+		IsRegistered:    true,
+	}
+
+	c.IndentedJSON(http.StatusOK, response)
 }
