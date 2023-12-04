@@ -1,5 +1,22 @@
 basePath: /api/v1
 definitions:
+  api_responses.CheckCredentialResponse:
+    properties:
+      email:
+        type: string
+      is_email_verified:
+        type: boolean
+      is_phone_verified:
+        type: boolean
+      is_pin_registered:
+        type: boolean
+      is_registered:
+        type: boolean
+      is_user_exist:
+        type: boolean
+      phone_number:
+        type: string
+    type: object
   models.AppConfigResponse:
     properties:
       customer_friend_phone_number:
@@ -20,21 +37,26 @@ definitions:
       message:
         type: string
     type: object
-  models.SuccessAPIResponseMessageOnly:
-    properties:
-      message:
-        type: string
-    type: object
   models.Users:
     properties:
       email:
         type: string
+      email_verification_status:
+        type: integer
       id:
         type: integer
       name:
         type: string
+      password:
+        type: string
       phone_number:
         type: string
+      phone_verification_status:
+        type: integer
+      pin:
+        type: string
+      status:
+        type: integer
     type: object
 host: localhost:8083
 info:
@@ -94,7 +116,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.SuccessAPIResponseMessageOnly'
+            $ref: '#/definitions/api_responses.CheckCredentialResponse'
       summary: Check whether email or phone number exist on the database
       tags:
       - Auth

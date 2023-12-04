@@ -89,7 +89,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.SuccessAPIResponseMessageOnly"
+                            "$ref": "#/definitions/api_responses.CheckCredentialResponse"
                         }
                     }
                 }
@@ -175,6 +175,32 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "api_responses.CheckCredentialResponse": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "is_email_verified": {
+                    "type": "boolean"
+                },
+                "is_phone_verified": {
+                    "type": "boolean"
+                },
+                "is_pin_registered": {
+                    "type": "boolean"
+                },
+                "is_registered": {
+                    "type": "boolean"
+                },
+                "is_user_exist": {
+                    "type": "boolean"
+                },
+                "phone_number": {
+                    "type": "string"
+                }
+            }
+        },
         "models.AppConfigResponse": {
             "type": "object",
             "properties": {
@@ -206,19 +232,14 @@ const docTemplate = `{
                 }
             }
         },
-        "models.SuccessAPIResponseMessageOnly": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
         "models.Users": {
             "type": "object",
             "properties": {
                 "email": {
                     "type": "string"
+                },
+                "email_verification_status": {
+                    "type": "integer"
                 },
                 "id": {
                     "type": "integer"
@@ -226,8 +247,20 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
+                "password": {
+                    "type": "string"
+                },
                 "phone_number": {
                     "type": "string"
+                },
+                "phone_verification_status": {
+                    "type": "integer"
+                },
+                "pin": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
                 }
             }
         }
