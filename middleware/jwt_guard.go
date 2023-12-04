@@ -96,3 +96,13 @@ func GetJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 		TimeFunc: time.Now,
 	})
 }
+
+func GetUserIdFromJWT(c *gin.Context) uint {
+	claims := jwt.ExtractClaims(c)
+	return uint(claims["userId"].(float64))
+}
+
+func GetEmailFromJWT(c *gin.Context) string {
+	claims := jwt.ExtractClaims(c)
+	return claims["email"].(string)
+}
