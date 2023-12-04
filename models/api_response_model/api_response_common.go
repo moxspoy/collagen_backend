@@ -1,9 +1,9 @@
-package models
+package api_response_model
 
 type SuccessAPIResponse struct {
-	code    int32
-	message string
-	data    any
+	Code    int    `json:"code"`
+	Message string `json:"message"`
+	Data    any    `json:"data"`
 }
 
 type SuccessAPIResponseMessageOnly struct {
