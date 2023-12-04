@@ -5,7 +5,7 @@ import (
 	v1 "flop/controllers/v1"
 	"flop/docs"
 	"flop/middleware"
-	"flop/models"
+	"flop/models/database_model"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	swaggerfiles "github.com/swaggo/files"
@@ -40,7 +40,7 @@ func main() {
 
 	router := gin.Default()
 	database.ConnectDatabase()
-	err = database.DB.AutoMigrate(&models.Users{}, &models.AppConfig{})
+	err = database.DB.AutoMigrate(&database_model.Users{}, &database_model.AppConfig{})
 	if err != nil {
 		log.Fatal("Migration Error:" + err.Error())
 	}
@@ -68,16 +68,25 @@ func main() {
 		log.Fatal("authMiddleware.MiddlewareInit() Error:" + errInit.Error())
 	}
 
-	authRouter.POST("/validate-identity", authMiddleware.LoginHandler)
+	authRouter.POST("/validate-identity", func(context *gin.Context) {
+		v1.ValidateIdentity(context, authMiddleware)
+	})
+	authRouter.POST("/sign-up", func(context *gin.Context) {
+		v1.UserSignUp(context, authMiddleware)
+	})
 
 	// Refresh time can be longer than token timeout
-	authRouter.POST("/refresh-token", authMiddleware.RefreshHandler)
+	authRouter.POST("/refresh-token", func(context *gin.Context) {
+		v1.RefreshToken(context, authMiddleware)
+	})
 
 	userRouter := v1Router.Group("/user")
 	userRouter.Use(authMiddleware.MiddlewareFunc())
 	{
 		userRouter.GET("/info", v1.GetUserInfo)
-		userRouter.PUT("/update-email", v1.UpdateEmail)
+		userRouter.PUT("/update-email", func(context *gin.Context) {
+			v1.UpdateEmail(context, authMiddleware)
+		})
 	}
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
