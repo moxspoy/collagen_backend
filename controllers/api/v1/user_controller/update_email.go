@@ -1,7 +1,7 @@
 package user_controller
 
 import (
-	"flop/helper/api_response"
+	"flop/helper/api_response_helper"
 	"flop/middleware"
 	"flop/models/database_model"
 	"flop/repositories/users"
@@ -35,5 +35,5 @@ func UpdateEmail(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 		c.IndentedJSON(http.StatusInternalServerError, err)
 		return
 	}
-	api_response.GenerateSuccessResponse(c, "Update email successful", newJWT)
+	api_response_helper.GenerateSuccessResponse(c, "Update email successful", newJWT)
 }

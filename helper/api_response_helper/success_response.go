@@ -1,4 +1,4 @@
-package api_response
+package api_response_helper
 
 import "C"
 import (

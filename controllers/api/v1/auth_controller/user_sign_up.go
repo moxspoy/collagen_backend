@@ -1,7 +1,7 @@
 package auth_controller
 
 import (
-	"flop/helper/api_response"
+	"flop/helper/api_response_helper"
 	"flop/models/api_request_model"
 	"flop/models/database_model"
 	"flop/repositories/user_logged_in_devices"
@@ -65,5 +65,5 @@ func UserSignUp(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 		c.IndentedJSON(http.StatusInternalServerError, err)
 		return
 	}
-	api_response.GenerateSuccessResponse(c, "success register", newJWT)
+	api_response_helper.GenerateSuccessResponse(c, "success register", newJWT)
 }
