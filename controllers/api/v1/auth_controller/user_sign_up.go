@@ -9,6 +9,7 @@ import (
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"time"
 )
 
 // UserSignUp godoc
@@ -55,14 +56,15 @@ func UserSignUp(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 		Platform:         request.Platform,
 		AppNameVersion:   request.AppNameVersion,
 		AppBuildVersion:  request.AppBuildVersion,
+		LastLogin:        time.Now().Format("2006-01-02 15:04:05"),
 	}
 
 	user_logged_in_devices_repository.InsertOnSignUp(&userLoggedInDevice)
 
-	newJWT, _, err := authMiddleware.TokenGenerator(&user)
+	newJWT, _, jwtErr := authMiddleware.TokenGenerator(&user)
 
-	if err != nil {
-		c.IndentedJSON(http.StatusInternalServerError, err)
+	if jwtErr != nil {
+		c.IndentedJSON(http.StatusInternalServerError, jwtErr)
 		return
 	}
 	api_response_helper.GenerateSuccessResponse(c, "success register", newJWT)

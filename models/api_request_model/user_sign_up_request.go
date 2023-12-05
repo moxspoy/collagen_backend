@@ -2,8 +2,8 @@ package api_request_model
 
 type UserSignUpRequest struct {
 	Name             string `form:"name"`
-	Email            string `form:"email" binding:"email"`
-	PhoneNumber      string `form:"phone_number" binding:"e164"`
+	Email            string `form:"email"`
+	PhoneNumber      string `form:"phone_number"`
 	Credential       string `form:"credential"`
 	Platform         string `form:"platform"`
 	DeviceModel      string `form:"device_model"`
