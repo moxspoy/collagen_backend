@@ -4,8 +4,8 @@ import (
 	"flop/helper/api_response_helper"
 	"flop/models/api_request_model"
 	"flop/models/database_model"
-	"flop/repositories/user_logged_in_devices"
-	"flop/repositories/users"
+	"flop/repositories/user_logged_in_devices_repository"
+	"flop/repositories/users_repository"
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -44,7 +44,7 @@ func UserSignUp(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 		PhoneVerificationStatus: 0,
 		EmailVerificationStatus: 0,
 	}
-	users.InsertUser(&user)
+	users_repository.InsertUser(&user)
 
 	// save device identifier
 	userLoggedInDevice := database_model.UserLoggedInDevices{
@@ -57,7 +57,7 @@ func UserSignUp(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 		AppBuildVersion:  request.AppBuildVersion,
 	}
 
-	user_logged_in_devices.InsertOnSignUp(&userLoggedInDevice)
+	user_logged_in_devices_repository.InsertOnSignUp(&userLoggedInDevice)
 
 	newJWT, _, err := authMiddleware.TokenGenerator(&user)
 

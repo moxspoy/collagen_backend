@@ -1,4 +1,4 @@
-package users
+package users_repository
 
 import (
 	"flop/config/database"

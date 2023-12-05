@@ -18,5 +18,5 @@ type UserLoggedInDevices struct {
 }
 
 func (UserLoggedInDevices) TableName() string {
-	return "user_logged_in_devices"
+	return "user_logged_in_devices_repository"
 }
