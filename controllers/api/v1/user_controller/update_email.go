@@ -35,5 +35,5 @@ func UpdateEmail(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 		c.IndentedJSON(http.StatusInternalServerError, err)
 		return
 	}
-	api_response_helper.GenerateSuccessResponse(c, "Update email successful", newJWT)
+	api_response_helper.GenerateSuccessWithTokenResponse(c, "Update email successful", newJWT)
 }

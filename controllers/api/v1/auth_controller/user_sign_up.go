@@ -83,5 +83,5 @@ func UserSignUp(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 		c.IndentedJSON(http.StatusInternalServerError, jwtErr)
 		return
 	}
-	api_response_helper.GenerateSuccessResponse(c, "success register", newJWT)
+	api_response_helper.GenerateSuccessWithTokenResponse(c, "success register", newJWT)
 }
