@@ -3,6 +3,7 @@ package main
 import (
 	"flop/config/database"
 	v1 "flop/controllers/v1"
+	"flop/controllers/v1/public_controller"
 	"flop/docs"
 	"flop/middleware"
 	"flop/models/database_model"
@@ -50,7 +51,7 @@ func main() {
 	v1Router := apiRouter.Group("/v1")
 	v1Router.Use(middleware.GuardApiKey())
 
-	v1Router.GET("/app-info", v1.GetAppInfo)
+	v1Router.GET("/app-info", public_controller.GetAppInfo)
 
 	authRouter := v1Router.Group("auth")
 	authRouter.POST("/check-credential", v1.CheckCredential)
