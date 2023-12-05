@@ -31,7 +31,7 @@ func UpdateUserName(c *gin.Context) {
 	}
 
 	validate := validator.New(validator.WithRequiredStructEnabled())
-	errs := validate.Var(name, "required,alphanumeric")
+	errs := validate.Var(name, "required")
 
 	if errs != nil {
 		api_response_helper.GenerateErrorResponse(c, errs)
