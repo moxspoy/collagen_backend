@@ -86,7 +86,7 @@ func main() {
 	userRouter.Use(authMiddleware.MiddlewareFunc())
 	{
 		userRouter.GET("/info", user_controller.GetUserInfo)
-		userRouter.GET("/update-phone-number", user_controller.UpdatePhoneNumber)
+		userRouter.PUT("/update-phone-number", user_controller.UpdatePhoneNumber)
 		userRouter.PUT("/update-email", func(context *gin.Context) {
 			user_controller.UpdateEmail(context, authMiddleware)
 		})

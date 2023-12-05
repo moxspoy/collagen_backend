@@ -6,6 +6,6 @@ import (
 	"gorm.io/gorm"
 )
 
-func UpdatePhoneNumber(user *database_model.Users) *gorm.DB {
-	return database.DB.Save(&user)
+func UpdatePhoneNumber(id uint, phoneNumber string) *gorm.DB {
+	return database.DB.Model(database_model.Users{}).Where("id = ?", id).UpdateColumn("phone_number", phoneNumber)
 }

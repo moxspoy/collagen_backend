@@ -1,12 +1,12 @@
 package user_controller
 
 import (
-	"database/sql"
+	"errors"
 	"flop/helper/api_response_helper"
 	"flop/middleware"
-	"flop/models/database_model"
 	"flop/repositories/users_repository"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
 // UpdatePhoneNumber godoc
@@ -25,11 +25,23 @@ func UpdatePhoneNumber(c *gin.Context) {
 	currentUserId := middleware.GetUserIdFromJWT(c)
 	phoneNumber := c.Request.FormValue("phone_number")
 
-	user := database_model.Users{
-		ID:          currentUserId,
-		PhoneNumber: sql.NullString{String: phoneNumber, Valid: true},
+	if phoneNumber == "" {
+		api_response_helper.GenerateErrorResponse(c, errors.New("phone number can not be empty"))
+		return
 	}
-	users_repository.UpdatePhoneNumber(&user)
+
+	validate := validator.New(validator.WithRequiredStructEnabled())
+	errs := validate.Var(phoneNumber, "required,e164")
+
+	if errs != nil {
+		api_response_helper.GenerateErrorResponse(c, errs)
+		return
+	}
+
+	if dbc := users_repository.UpdatePhoneNumber(currentUserId, phoneNumber); dbc.Error != nil {
+		api_response_helper.GenerateErrorResponse(c, dbc.Error)
+		return
+	}
 
 	api_response_helper.GenerateSuccessResponse(c, "Update phone number successful", phoneNumber)
 }
