@@ -8,5 +8,5 @@ import (
 func UpdateUserEmail(user *database_model.Users, oldEmail string, newEmail string) {
 	database.DB.Model(&user).Where("email = ?", oldEmail).UpdateColumn("email", newEmail)
 	newUser := GetOneUserByEmail(newEmail)
-	user.Id = newUser.Id
+	user.ID = newUser.ID
 }

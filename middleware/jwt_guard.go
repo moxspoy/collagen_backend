@@ -25,7 +25,7 @@ func GetJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 			if v, ok := data.(*database_model.Users); ok {
 				return jwt.MapClaims{
 					"email":  v.Email,
-					"userId": v.Id,
+					"userId": v.ID,
 				}
 			}
 			return jwt.MapClaims{}
@@ -34,7 +34,7 @@ func GetJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 			claims := jwt.ExtractClaims(c)
 			return &database_model.Users{
 				Email: claims["email"].(string),
-				Id:    uint(claims["userId"].(float64)),
+				ID:    uint(claims["userId"].(float64)),
 			}
 		},
 		Authenticator: func(c *gin.Context) (interface{}, error) {
@@ -57,7 +57,7 @@ func GetJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 
 			user := users[0]
 
-			if user.Id > 0 {
+			if user.ID > 0 {
 				return &user, nil
 			}
 

@@ -48,7 +48,7 @@ func UserSignUp(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 
 	// save device identifier
 	userLoggedInDevice := database_model.UserLoggedInDevices{
-		UserId:           user.Id,
+		UserId:           user.ID,
 		DeviceModel:      request.DeviceModel,
 		DeviceIdentifier: request.DeviceIdentifier,
 		OsVersion:        request.OsVersion,
