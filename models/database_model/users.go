@@ -27,3 +27,7 @@ func (users Users) IsPhoneVerified() bool {
 func (users Users) IsPinRegistered() bool {
 	return users.Pin != ""
 }
+
+func (users Users) IsRegistered() bool {
+	return users.PhoneNumber != ""
+}

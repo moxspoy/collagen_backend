@@ -57,7 +57,7 @@ func CheckCredential(c *gin.Context) {
 		IsEmailVerified: user.IsPhoneVerified(),
 		IsPhoneVerified: user.IsPhoneVerified(),
 		IsPinRegistered: user.IsPinRegistered(),
-		IsRegistered:    true,
+		IsRegistered:    user.IsRegistered(),
 	}
 
 	c.IndentedJSON(http.StatusOK, response)
