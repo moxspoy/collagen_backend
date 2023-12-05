@@ -2,9 +2,9 @@ package main
 
 import (
 	"flop/config/database"
-	auth_controller2 "flop/controllers/api/v1/auth_controller"
+	"flop/controllers/api/v1/auth_controller"
 	"flop/controllers/api/v1/public_controller"
-	user_controller2 "flop/controllers/api/v1/user_controller"
+	"flop/controllers/api/v1/user_controller"
 	"flop/docs"
 	"flop/middleware"
 	"flop/models/database_model"
@@ -55,7 +55,7 @@ func main() {
 	v1Router.GET("/app-info", public_controller.GetAppInfo)
 
 	authRouter := v1Router.Group("auth")
-	authRouter.POST("/check-credential", auth_controller2.CheckCredential)
+	authRouter.POST("/check-credential", auth_controller.CheckCredential)
 
 	authMiddleware, err := middleware.GetJWTMiddleware()
 
@@ -71,23 +71,23 @@ func main() {
 	}
 
 	authRouter.POST("/validate-identity", func(context *gin.Context) {
-		auth_controller2.ValidateIdentity(context, authMiddleware)
+		auth_controller.ValidateIdentity(context, authMiddleware)
 	})
 	authRouter.POST("/sign-up", func(context *gin.Context) {
-		auth_controller2.UserSignUp(context, authMiddleware)
+		auth_controller.UserSignUp(context, authMiddleware)
 	})
 
 	// Refresh time can be longer than token timeout
 	authRouter.POST("/refresh-token", func(context *gin.Context) {
-		auth_controller2.RefreshToken(context, authMiddleware)
+		auth_controller.RefreshToken(context, authMiddleware)
 	})
 
 	userRouter := v1Router.Group("/user")
 	userRouter.Use(authMiddleware.MiddlewareFunc())
 	{
-		userRouter.GET("/info", user_controller2.GetUserInfo)
+		userRouter.GET("/info", user_controller.GetUserInfo)
 		userRouter.PUT("/update-email", func(context *gin.Context) {
-			user_controller2.UpdateEmail(context, authMiddleware)
+			user_controller.UpdateEmail(context, authMiddleware)
 		})
 	}
 
