@@ -1,6 +1,7 @@
 package auth_controller
 
 import (
+	"database/sql"
 	"flop/helper/api_response_helper"
 	"flop/models/api_request_model"
 	"flop/models/database_model"
@@ -9,6 +10,7 @@ import (
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -35,9 +37,19 @@ func UserSignUp(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 	}
 
 	// save user
+	email := request.Credential
+	phoneNumber := request.Credential
+	if strings.Contains(request.Credential, "@") {
+		phoneNumber = ""
+	} else {
+		email = ""
+	}
+	isEmailNull := email == ""
+	isPhoneNull := phoneNumber == ""
+
 	user := database_model.Users{
-		Email:                   request.Email,
-		PhoneNumber:             request.PhoneNumber,
+		Email:                   sql.NullString{String: email, Valid: !isEmailNull},
+		PhoneNumber:             sql.NullString{String: phoneNumber, Valid: !isPhoneNull},
 		Name:                    request.Name,
 		Password:                "",
 		Pin:                     "",
@@ -45,7 +57,11 @@ func UserSignUp(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 		PhoneVerificationStatus: 0,
 		EmailVerificationStatus: 0,
 	}
-	users_repository.InsertUser(&user)
+	result := users_repository.InsertUser(&user)
+	if result.Error != nil {
+		api_response_helper.GenerateErrorResponse(c, result.Error)
+		return
+	}
 
 	// save device identifier
 	userLoggedInDevice := database_model.UserLoggedInDevices{

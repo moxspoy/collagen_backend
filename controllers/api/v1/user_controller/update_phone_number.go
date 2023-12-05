@@ -1,6 +1,7 @@
 package user_controller
 
 import (
+	"database/sql"
 	"flop/helper/api_response_helper"
 	"flop/middleware"
 	"flop/models/database_model"
@@ -26,7 +27,7 @@ func UpdatePhoneNumber(c *gin.Context) {
 
 	user := database_model.Users{
 		ID:          currentUserId,
-		PhoneNumber: phoneNumber,
+		PhoneNumber: sql.NullString{String: phoneNumber, Valid: true},
 	}
 	users_repository.UpdatePhoneNumber(&user)
 

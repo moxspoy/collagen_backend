@@ -47,8 +47,8 @@ func CheckCredential(c *gin.Context) {
 	if isUserExist {
 		user = users[0]
 	}
-	email := user.Email
-	phone := user.PhoneNumber
+	email := user.Email.String
+	phone := user.PhoneNumber.String
 
 	response := api_response_model.CheckCredentialResponse{
 		Email:           email,

@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"database/sql"
 	"errors"
 	"flop/config/database"
 	"flop/models/api_request_model"
@@ -24,7 +25,7 @@ func GetJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
 			if v, ok := data.(*database_model.Users); ok {
 				return jwt.MapClaims{
-					"email":  v.Email,
+					"email":  v.Email.String,
 					"userId": v.ID,
 				}
 			}
@@ -32,8 +33,9 @@ func GetJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 		},
 		IdentityHandler: func(c *gin.Context) interface{} {
 			claims := jwt.ExtractClaims(c)
+			email := claims["email"].(string)
 			return &database_model.Users{
-				Email: claims["email"].(string),
+				Email: sql.NullString{String: email, Valid: true},
 				ID:    uint(claims["userId"].(float64)),
 			}
 		},
