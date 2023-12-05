@@ -1,11 +1,14 @@
 package database_model
 
+import "gorm.io/gorm"
+
 const (
 	StatusVerified = 1
 )
 
 type Users struct {
-	Id                      uint   `json:"id"`
+	gorm.Model
+	ID                      uint   `json:"id"`
 	Email                   string `json:"email"`
 	PhoneNumber             string `json:"phone_number"`
 	Name                    string `json:"name"`

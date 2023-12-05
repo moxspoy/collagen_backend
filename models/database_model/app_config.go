@@ -1,6 +1,9 @@
 package database_model
 
+import "gorm.io/gorm"
+
 type AppConfig struct {
+	gorm.Model
 	Id         uint   `json:"id"`
 	Key        string `json:"key"`
 	Value      string `json:"value"`
