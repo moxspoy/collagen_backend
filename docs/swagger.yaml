@@ -49,8 +49,12 @@ definitions:
     type: object
   database_model.Users:
     properties:
-      email:
+      createdAt:
         type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      email:
+        $ref: '#/definitions/sql.NullString'
       email_verification_status:
         type: integer
       id:
@@ -60,13 +64,31 @@ definitions:
       password:
         type: string
       phone_number:
-        type: string
+        $ref: '#/definitions/sql.NullString'
       phone_verification_status:
         type: integer
       pin:
         type: string
       status:
         type: integer
+      updatedAt:
+        type: string
+    type: object
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  sql.NullString:
+    properties:
+      string:
+        type: string
+      valid:
+        description: Valid is true if String is not NULL
+        type: boolean
     type: object
 host: localhost:8083
 info:
@@ -294,6 +316,63 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Update user's email
+      tags:
+      - User
+  /user/update-phone-number:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Usually this endpoint used as part of onboarding. Note that it
+        should contains country code like +6285911110000
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: Phone number that will be saved to the database_model
+        in: formData
+        name: phone_number
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Update user's phone number
+      tags:
+      - User
+  /user/update-user-name:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Usually this endpoint used as part of onboarding.
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: Name that will be saved to the database_model
+        in: formData
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Update user's name
       tags:
       - User
 securityDefinitions:
