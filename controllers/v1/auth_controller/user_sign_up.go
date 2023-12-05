@@ -1,4 +1,4 @@
-package v1
+package auth_controller
 
 import (
 	"flop/helper/api_response"
