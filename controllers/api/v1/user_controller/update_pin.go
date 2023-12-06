@@ -3,7 +3,7 @@ package user_controller
 import (
 	"errors"
 	"flop/helper/api_response_helper"
-	"flop/helper/password_helper"
+	"flop/helper/security_helper"
 	"flop/middleware"
 	"flop/repositories/users_repository"
 	"github.com/gin-gonic/gin"
@@ -39,7 +39,7 @@ func UpdatePin(c *gin.Context) {
 		return
 	}
 
-	hashedPin, hashingError := password_helper.HashPassword(pin)
+	hashedPin, hashingError := security_helper.HashPassword(pin)
 
 	if hashingError != nil {
 		api_response_helper.GenerateErrorResponse(c, hashingError)

@@ -3,6 +3,7 @@ package main
 import (
 	"flop/config/database"
 	"flop/controllers/api/v1/auth_controller"
+	"flop/controllers/api/v1/otp_controller"
 	"flop/controllers/api/v1/public_controller"
 	"flop/controllers/api/v1/user_controller"
 	"flop/docs"
@@ -42,7 +43,7 @@ func main() {
 
 	router := gin.Default()
 	database.ConnectDatabase()
-	err = database.DB.AutoMigrate(&database_model.Users{}, &database_model.AppConfig{}, &database_model.UserLoggedInDevices{})
+	err = database.DB.AutoMigrate(&database_model.Users{}, &database_model.AppConfig{}, &database_model.UserLoggedInDevices{}, database_model.OneTimePassword{})
 	if err != nil {
 		log.Fatal("Migration Error:" + err.Error())
 	}
@@ -92,6 +93,12 @@ func main() {
 		userRouter.PUT("/update-email", func(context *gin.Context) {
 			user_controller.UpdateEmail(context, authMiddleware)
 		})
+	}
+
+	otpRouter := v1Router.Group("/otp")
+	otpRouter.Use(authMiddleware.MiddlewareFunc())
+	{
+		otpRouter.POST("/request", otp_controller.RequestOTP)
 	}
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))

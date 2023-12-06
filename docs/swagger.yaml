@@ -269,6 +269,28 @@ paths:
       summary: Validate identity is like for login
       tags:
       - Auth
+  /otp/request:
+    put:
+      description: Usually this endpoint used to authenticate user when doing some
+        sensitive data changes
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Request OTP
+      tags:
+      - OTP
   /user/info:
     get:
       description: This endpoint used to fetch user's data
