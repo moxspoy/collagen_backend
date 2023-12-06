@@ -347,6 +347,34 @@ paths:
       summary: Update user's phone number
       tags:
       - User
+  /user/update-pin:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Usually this endpoint used as part of onboarding.
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: 6 digits that will be saved to the database_model
+        in: formData
+        name: pin
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Update user's pin
+      tags:
+      - User
   /user/update-user-name:
     put:
       consumes:
