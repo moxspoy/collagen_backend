@@ -4,7 +4,7 @@ import "gorm.io/gorm"
 
 type AppConfig struct {
 	gorm.Model
-	Id         uint   `json:"id"`
+	Id         uint   `json:"id" gorm:"primary_key"`
 	Key        string `json:"key"`
 	Value      string `json:"value"`
 	LastUpdate string `json:"last_update"`

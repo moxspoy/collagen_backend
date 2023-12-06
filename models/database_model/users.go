@@ -11,7 +11,7 @@ const (
 
 type Users struct {
 	gorm.Model
-	ID                      uint           `json:"id"`
+	ID                      uint           `json:"id" gorm:"primary_key"`
 	Email                   sql.NullString `json:"email" gorm:"unique"`
 	PhoneNumber             sql.NullString `json:"phone_number" gorm:"unique"`
 	Name                    string         `json:"name"`
