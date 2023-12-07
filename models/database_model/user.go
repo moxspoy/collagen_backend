@@ -9,7 +9,7 @@ const (
 	StatusVerified = 1
 )
 
-type Users struct {
+type User struct {
 	gorm.Model
 	ID                      uint           `json:"id" gorm:"primary_key"`
 	Email                   sql.NullString `json:"email" gorm:"unique"`
@@ -22,18 +22,18 @@ type Users struct {
 	EmailVerificationStatus int            `json:"email_verification_status"`
 }
 
-func (users Users) IsEmailVerified() bool {
-	return users.EmailVerificationStatus == StatusVerified
+func (user User) IsEmailVerified() bool {
+	return user.EmailVerificationStatus == StatusVerified
 }
 
-func (users Users) IsPhoneVerified() bool {
-	return users.PhoneVerificationStatus == StatusVerified
+func (user User) IsPhoneVerified() bool {
+	return user.PhoneVerificationStatus == StatusVerified
 }
 
-func (users Users) IsPinRegistered() bool {
-	return users.Pin != ""
+func (user User) IsPinRegistered() bool {
+	return user.Pin != ""
 }
 
-func (users Users) IsRegistered() bool {
-	return users.PhoneNumber.Valid && users.PhoneNumber.String != ""
+func (user User) IsRegistered() bool {
+	return user.PhoneNumber.Valid && user.PhoneNumber.String != ""
 }
