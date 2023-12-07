@@ -283,6 +283,84 @@ const docTemplate = `{
                 }
             }
         },
+        "/otp/check": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used to authenticate user when doing some sensitive data changes",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OTP"
+                ],
+                "summary": "Check OTP",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OTP from SMS/Whatsapp to be checked",
+                        "name": "otp",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/otp/request": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used to authenticate user when doing some sensitive data changes",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OTP"
+                ],
+                "summary": "Request OTP",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/user/info": {
             "get": {
                 "security": [
@@ -347,6 +425,138 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Email that will be saved to the database_model",
                         "name": "new_email",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update-phone-number": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used as part of onboarding. Note that it should contains country code like +6285911110000",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user's phone number",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Phone number that will be saved to the database_model",
+                        "name": "phone_number",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update-pin": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used as part of onboarding.",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user's pin",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "6 digits that will be saved to the database_model",
+                        "name": "pin",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update-user-name": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used as part of onboarding.",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user's name",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Name that will be saved to the database_model",
+                        "name": "name",
                         "in": "formData",
                         "required": true
                     }
@@ -438,8 +648,14 @@ const docTemplate = `{
         "database_model.Users": {
             "type": "object",
             "properties": {
-                "email": {
+                "createdAt": {
                     "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/gorm.DeletedAt"
+                },
+                "email": {
+                    "$ref": "#/definitions/sql.NullString"
                 },
                 "email_verification_status": {
                     "type": "integer"
@@ -454,7 +670,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "phone_number": {
-                    "type": "string"
+                    "$ref": "#/definitions/sql.NullString"
                 },
                 "phone_verification_status": {
                     "type": "integer"
@@ -464,6 +680,33 @@ const docTemplate = `{
                 },
                 "status": {
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "gorm.DeletedAt": {
+            "type": "object",
+            "properties": {
+                "time": {
+                    "type": "string"
+                },
+                "valid": {
+                    "description": "Valid is true if Time is not NULL",
+                    "type": "boolean"
+                }
+            }
+        },
+        "sql.NullString": {
+            "type": "object",
+            "properties": {
+                "string": {
+                    "type": "string"
+                },
+                "valid": {
+                    "description": "Valid is true if String is not NULL",
+                    "type": "boolean"
                 }
             }
         }

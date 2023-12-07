@@ -1,8 +1,8 @@
-package v1
+package user_controller
 
 import (
 	"flop/middleware"
-	"flop/repositories/users"
+	"flop/repositories/users_repository"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -19,6 +19,6 @@ import (
 //	@Security		ApiKeyAuth
 func GetUserInfo(c *gin.Context) {
 	userId := middleware.GetUserIdFromJWT(c)
-	currentUser := users.GetOneUserById(userId)
+	currentUser := users_repository.GetOneUserById(userId)
 	c.IndentedJSON(http.StatusOK, currentUser)
 }

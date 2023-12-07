@@ -1,10 +1,10 @@
-package v1
+package user_controller
 
 import (
-	"flop/helper/api_response"
+	"flop/helper/api_response_helper"
 	"flop/middleware"
 	"flop/models/database_model"
-	"flop/repositories/users"
+	"flop/repositories/users_repository"
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -27,7 +27,7 @@ func UpdateEmail(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 	newEmail := c.Request.FormValue("new_email")
 
 	user := database_model.Users{}
-	users.UpdateUserEmail(&user, currentEmail, newEmail)
+	users_repository.UpdateUserEmail(&user, currentEmail, newEmail)
 
 	newJWT, _, err := authMiddleware.TokenGenerator(&user)
 
@@ -35,5 +35,5 @@ func UpdateEmail(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 		c.IndentedJSON(http.StatusInternalServerError, err)
 		return
 	}
-	api_response.GenerateSuccessResponse(c, "Update email successful", newJWT)
+	api_response_helper.GenerateSuccessWithTokenResponse(c, "Update email successful", newJWT)
 }

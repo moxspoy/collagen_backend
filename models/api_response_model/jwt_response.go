@@ -7,3 +7,7 @@ type JwtResponse struct {
 	Expire time.Time `json:"expire"`
 	Token  string    `json:"token"`
 }
+
+type WithJwtTokenResponse struct {
+	Token string `json:"token"`
+}

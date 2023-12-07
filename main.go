@@ -2,7 +2,10 @@ package main
 
 import (
 	"flop/config/database"
-	v1 "flop/controllers/v1"
+	"flop/controllers/api/v1/auth_controller"
+	"flop/controllers/api/v1/otp_controller"
+	"flop/controllers/api/v1/public_controller"
+	"flop/controllers/api/v1/user_controller"
 	"flop/docs"
 	"flop/middleware"
 	"flop/models/database_model"
@@ -40,7 +43,7 @@ func main() {
 
 	router := gin.Default()
 	database.ConnectDatabase()
-	err = database.DB.AutoMigrate(&database_model.Users{}, &database_model.AppConfig{}, &database_model.UserLoggedInDevices{})
+	err = database.DB.AutoMigrate(&database_model.Users{}, &database_model.AppConfig{}, &database_model.UserLoggedInDevices{}, database_model.OneTimePassword{})
 	if err != nil {
 		log.Fatal("Migration Error:" + err.Error())
 	}
@@ -50,10 +53,10 @@ func main() {
 	v1Router := apiRouter.Group("/v1")
 	v1Router.Use(middleware.GuardApiKey())
 
-	v1Router.GET("/app-info", v1.GetAppInfo)
+	v1Router.GET("/app-info", public_controller.GetAppInfo)
 
 	authRouter := v1Router.Group("auth")
-	authRouter.POST("/check-credential", v1.CheckCredential)
+	authRouter.POST("/check-credential", auth_controller.CheckCredential)
 
 	authMiddleware, err := middleware.GetJWTMiddleware()
 
@@ -69,24 +72,34 @@ func main() {
 	}
 
 	authRouter.POST("/validate-identity", func(context *gin.Context) {
-		v1.ValidateIdentity(context, authMiddleware)
+		auth_controller.ValidateIdentity(context, authMiddleware)
 	})
 	authRouter.POST("/sign-up", func(context *gin.Context) {
-		v1.UserSignUp(context, authMiddleware)
+		auth_controller.UserSignUp(context, authMiddleware)
 	})
 
 	// Refresh time can be longer than token timeout
 	authRouter.POST("/refresh-token", func(context *gin.Context) {
-		v1.RefreshToken(context, authMiddleware)
+		auth_controller.RefreshToken(context, authMiddleware)
 	})
 
 	userRouter := v1Router.Group("/user")
 	userRouter.Use(authMiddleware.MiddlewareFunc())
 	{
-		userRouter.GET("/info", v1.GetUserInfo)
+		userRouter.GET("/info", user_controller.GetUserInfo)
+		userRouter.PUT("/update-phone-number", user_controller.UpdatePhoneNumber)
+		userRouter.PUT("/update-user-name", user_controller.UpdateUserName)
+		userRouter.PUT("/update-pin", user_controller.UpdatePin)
 		userRouter.PUT("/update-email", func(context *gin.Context) {
-			v1.UpdateEmail(context, authMiddleware)
+			user_controller.UpdateEmail(context, authMiddleware)
 		})
+	}
+
+	otpRouter := v1Router.Group("/otp")
+	otpRouter.Use(authMiddleware.MiddlewareFunc())
+	{
+		otpRouter.POST("/request", otp_controller.RequestOTP)
+		otpRouter.POST("/check", otp_controller.CheckOTP)
 	}
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))

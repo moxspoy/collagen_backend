@@ -1,4 +1,4 @@
-package v1
+package auth_controller
 
 import (
 	jwt "github.com/appleboy/gin-jwt/v2"

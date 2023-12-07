@@ -1,6 +1,9 @@
 package database_model
 
-import "gorm.io/gorm"
+import (
+	"database/sql"
+	"gorm.io/gorm"
+)
 
 const (
 	StatusVerified = 1
@@ -8,15 +11,15 @@ const (
 
 type Users struct {
 	gorm.Model
-	ID                      uint   `json:"id"`
-	Email                   string `json:"email"`
-	PhoneNumber             string `json:"phone_number"`
-	Name                    string `json:"name"`
-	Password                string `json:"password"`
-	Pin                     string `json:"pin"`
-	Status                  int    `json:"status"`
-	PhoneVerificationStatus int    `json:"phone_verification_status"`
-	EmailVerificationStatus int    `json:"email_verification_status"`
+	ID                      uint           `json:"id" gorm:"primary_key"`
+	Email                   sql.NullString `json:"email" gorm:"unique"`
+	PhoneNumber             sql.NullString `json:"phone_number" gorm:"unique"`
+	Name                    string         `json:"name"`
+	Password                string         `json:"password"`
+	Pin                     string         `json:"pin"`
+	Status                  int            `json:"status"`
+	PhoneVerificationStatus int            `json:"phone_verification_status"`
+	EmailVerificationStatus int            `json:"email_verification_status"`
 }
 
 func (users Users) IsEmailVerified() bool {
@@ -32,5 +35,5 @@ func (users Users) IsPinRegistered() bool {
 }
 
 func (users Users) IsRegistered() bool {
-	return users.PhoneNumber != ""
+	return users.PhoneNumber.Valid && users.PhoneNumber.String != ""
 }
