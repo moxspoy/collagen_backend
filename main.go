@@ -8,7 +8,6 @@ import (
 	"flop/controllers/api/v1/user_controller"
 	"flop/docs"
 	"flop/middleware"
-	"flop/models/database_model"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	swaggerfiles "github.com/swaggo/files"
@@ -43,13 +42,7 @@ func main() {
 
 	router := gin.Default()
 	database.ConnectDatabase()
-	err = database.DB.AutoMigrate(
-		&database_model.User{},
-		&database_model.AppConfig{},
-		&database_model.UserLoggedInDevices{},
-		&database_model.OneTimePassword{},
-		&database_model.UserDetail{},
-	)
+	err = database.RunAutoMigration(database.DB)
 	if err != nil {
 		log.Fatal("Migration Error:" + err.Error())
 	}
