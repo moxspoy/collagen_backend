@@ -6,7 +6,7 @@ import (
 	"flop/models/api_request_model"
 	"flop/models/database_model"
 	"flop/repositories/user_logged_in_devices_repository"
-	"flop/repositories/users_repository"
+	"flop/repositories/user_repository"
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -47,7 +47,7 @@ func UserSignUp(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 	isEmailNull := email == ""
 	isPhoneNull := phoneNumber == ""
 
-	user := database_model.Users{
+	user := database_model.User{
 		Email:                   sql.NullString{String: email, Valid: !isEmailNull},
 		PhoneNumber:             sql.NullString{String: phoneNumber, Valid: !isPhoneNull},
 		Name:                    request.Name,
@@ -57,7 +57,7 @@ func UserSignUp(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 		PhoneVerificationStatus: 0,
 		EmailVerificationStatus: 0,
 	}
-	result := users_repository.InsertUser(&user)
+	result := user_repository.InsertUser(&user)
 	if result.Error != nil {
 		api_response_helper.GenerateErrorResponse(c, result.Error)
 		return

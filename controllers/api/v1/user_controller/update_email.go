@@ -4,7 +4,7 @@ import (
 	"flop/helper/api_response_helper"
 	"flop/middleware"
 	"flop/models/database_model"
-	"flop/repositories/users_repository"
+	"flop/repositories/user_repository"
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -26,8 +26,8 @@ func UpdateEmail(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 	currentEmail := middleware.GetEmailFromJWT(c)
 	newEmail := c.Request.FormValue("new_email")
 
-	user := database_model.Users{}
-	users_repository.UpdateUserEmail(&user, currentEmail, newEmail)
+	user := database_model.User{}
+	user_repository.UpdateUserEmail(&user, currentEmail, newEmail)
 
 	newJWT, _, err := authMiddleware.TokenGenerator(&user)
 

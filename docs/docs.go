@@ -389,7 +389,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/database_model.Users"
+                            "$ref": "#/definitions/database_model.User"
                         }
                     }
                 }
@@ -645,7 +645,7 @@ const docTemplate = `{
                 }
             }
         },
-        "database_model.Users": {
+        "database_model.User": {
             "type": "object",
             "properties": {
                 "createdAt": {

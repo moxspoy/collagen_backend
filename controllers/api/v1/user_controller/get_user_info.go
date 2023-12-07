@@ -2,7 +2,7 @@ package user_controller
 
 import (
 	"flop/middleware"
-	"flop/repositories/users_repository"
+	"flop/repositories/user_repository"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -13,12 +13,12 @@ import (
 //	@Description	This endpoint used to fetch user's data
 //	@Tags			User
 //	@Produce		json
-//	@Success		200	{object} database_model.Users
+//	@Success		200	{object} database_model.User
 //	@Router			/user/info [get]
 //	@Param			api_key	header string	true "Api Key"
 //	@Security		ApiKeyAuth
 func GetUserInfo(c *gin.Context) {
 	userId := middleware.GetUserIdFromJWT(c)
-	currentUser := users_repository.GetOneUserById(userId)
+	currentUser := user_repository.GetOneUserById(userId)
 	c.IndentedJSON(http.StatusOK, currentUser)
 }

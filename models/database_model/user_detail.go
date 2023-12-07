@@ -8,7 +8,7 @@ import (
 type UserDetail struct {
 	gorm.Model
 	UserID                    uint      `json:"user_id"`
-	User                      Users     `json:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	User                      User      `json:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	DateOfBirth               time.Time `json:"date_of_birth"`
 	Gender                    string    `json:"gender" gorm:"check:gender IN ('Male', 'Female', 'Other')"`
 	AddressLine1              string    `json:"address_line_1"`

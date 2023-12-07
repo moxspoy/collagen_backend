@@ -44,7 +44,7 @@ func main() {
 	router := gin.Default()
 	database.ConnectDatabase()
 	err = database.DB.AutoMigrate(
-		&database_model.Users{},
+		&database_model.User{},
 		&database_model.AppConfig{},
 		&database_model.UserLoggedInDevices{},
 		&database_model.OneTimePassword{},
