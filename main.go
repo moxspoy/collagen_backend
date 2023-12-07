@@ -99,6 +99,7 @@ func main() {
 	otpRouter.Use(authMiddleware.MiddlewareFunc())
 	{
 		otpRouter.POST("/request", otp_controller.RequestOTP)
+		otpRouter.POST("/check", otp_controller.CheckOTP)
 	}
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
