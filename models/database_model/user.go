@@ -22,6 +22,10 @@ type User struct {
 	EmailVerificationStatus int            `json:"email_verification_status"`
 }
 
+func (User) TableName() string {
+	return "USER"
+}
+
 func (user User) IsEmailVerified() bool {
 	return user.EmailVerificationStatus == StatusVerified
 }
