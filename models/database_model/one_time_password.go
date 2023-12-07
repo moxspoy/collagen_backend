@@ -8,7 +8,8 @@ import (
 type OneTimePassword struct {
 	gorm.Model
 	ID        uint      `json:"id" gorm:"primary_key"`
-	UserId    uint      `json:"user_id"`
+	UserID    uint      `json:"user_id"`
+	User      Users     `json:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	Token     string    `json:"token"`
 	ExpiredAt time.Time `json:"expired_at"`
 	Status    int       `json:"status"`

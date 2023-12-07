@@ -34,7 +34,7 @@ func RequestOTP(c *gin.Context) {
 	}
 
 	otp := database_model.OneTimePassword{
-		UserId:    userId,
+		UserID:    userId,
 		Token:     token,
 		ExpiredAt: then,
 		Status:    0,
