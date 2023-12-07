@@ -23,7 +23,7 @@ type User struct {
 }
 
 func (User) TableName() string {
-	return "USER"
+	return "user"
 }
 
 func (user User) IsEmailVerified() bool {
