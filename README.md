@@ -3,7 +3,7 @@ a golang project powered by gin as web service for flop
 
 # Flop: Student Social Media Platform
 
-![Flop Logo](https://your-image-url.com)
+<img src="https://iconape.com/wp-content/png_logo_vector/gopher.png" alt="drawing" width="200"/>
 
 Flop is a social media platform tailored specifically for students, designed to support their academic journey while providing a space for collaboration, discussion, and sharing experiences. Think of it as the "Reddit for students," built with the efficiency and power of the Gin framework in Golang.
 
