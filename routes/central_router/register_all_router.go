@@ -7,6 +7,7 @@ import (
 	"flop/routes/otp_router"
 	"flop/routes/public_router"
 	"flop/routes/swagger_router"
+	"flop/routes/user_detail_router"
 	"flop/routes/user_router"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -37,6 +38,7 @@ func RegisterAllRouter(router *gin.Engine) {
 	auth_router.RegisterAuthRouter(v1Router, authMiddleware)
 
 	user_router.RegisterUserRouter(v1Router, authMiddleware)
+	user_detail_router.RegisterUserDetailRouter(v1Router, authMiddleware)
 	otp_router.RegisterOtpRouter(v1Router, authMiddleware)
 	swagger_router.RegisterSwaggerRouter(router)
 }
