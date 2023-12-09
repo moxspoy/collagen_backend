@@ -7,5 +7,5 @@ import (
 )
 
 func UpdatePin(id uint, pin string) *gorm.DB {
-	return database.DB.Model(database_model.User{}).Where("id = ?", id).UpdateColumn("name", pin)
+	return database.DB.Model(database_model.User{}).Where("id = ?", id).UpdateColumn("pin", pin)
 }
