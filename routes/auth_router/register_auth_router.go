@@ -6,7 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterAuthRouter(authRouter *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) {
+func RegisterAuthRouter(v1Router *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) {
+	authRouter := v1Router.Group("auth")
 	authRouter.POST("/validate-identity", func(context *gin.Context) {
 		auth_controller.ValidateIdentity(context, authMiddleware)
 	})
