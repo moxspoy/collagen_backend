@@ -12,5 +12,6 @@ func RegisterUserDetailRouter(v1Router *gin.RouterGroup, authMiddleware *jwt.Gin
 	{
 		userRouter.GET("/info", user_detail_controller.GetUserDetail)
 		userRouter.PUT("/update", user_detail_controller.UpdateUserDetail)
+		userRouter.PUT("/update-selfie-image", user_detail_controller.UpdateUserSelfieImage)
 	}
 }
