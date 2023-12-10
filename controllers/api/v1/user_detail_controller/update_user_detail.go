@@ -1,39 +1,44 @@
-package user_controller
+package user_detail_controller
 
 import (
 	"flop/helper/api_response_helper"
 	"flop/middleware"
 	"flop/models/database_model"
-	"flop/repositories/user_repository"
-	jwt "github.com/appleboy/gin-jwt/v2"
+	"flop/repositories/user_detail_repository"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 )
 
-// UpdateEmail godoc
+// UpdateUserDetail godoc
 //
-//	@Summary		Update user's email
-//	@Description	Usually this endpoint used because user fill phone number first
+//	@Summary		Update user's detail
+//	@Description	Usually this endpoint used to process kyc
 //	@Tags			User
 //	@Accept			multipart/form-data
 //	@Produce		json
 //	@Success		200	{object}	api_response_model.SuccessAPIResponse
-//	@Router			/user/update-email [put]
+//	@Router			/user-detail/update [put]
 //	@Param			api_key	header string	true "Api Key"
-//	@Param			new_email formData string	true "Email that will be saved to the database_model"
+//	@Param			data formData database_model.UserDetail	true "User detail that will be saved to the database_model"
 //	@Security		ApiKeyAuth
-func UpdateEmail(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
-	currentEmail := middleware.GetEmailFromJWT(c)
-	newEmail := c.Request.FormValue("new_email")
-
-	user := database_model.User{}
-	user_repository.UpdateUserEmail(&user, currentEmail, newEmail)
-
-	newJWT, _, err := authMiddleware.TokenGenerator(&user)
+func UpdateUserDetail(c *gin.Context) {
+	userId := middleware.GetUserIdFromJWT(c)
+	var request database_model.UserDetail
+	err := c.Bind(&request)
+	request.UserID = userId
+	log.Print("wkwk", request.Gender)
 
 	if err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, err)
 		return
 	}
-	api_response_helper.GenerateSuccessWithTokenResponse(c, "Update email successful", newJWT)
+
+	user_detail_repository.UpdateUserDetail(&request)
+
+	if err != nil {
+		c.IndentedJSON(http.StatusInternalServerError, err)
+		return
+	}
+	api_response_helper.GenerateSuccessResponse(c, "Update user's detail successful", request)
 }

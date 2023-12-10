@@ -1,4 +1,4 @@
-package user_controller
+package user_detail_controller
 
 import (
 	"flop/middleware"
