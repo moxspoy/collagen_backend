@@ -4,6 +4,7 @@ import (
 	"flop/middleware"
 	"flop/models/database_model"
 	"flop/repositories/user_detail_repository"
+	"flop/repositories/user_repository"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -23,6 +24,10 @@ func GetUserDetail(c *gin.Context) {
 
 	currentUser := database_model.UserDetail{
 		UserID: userId,
+	}
+	if currentUser.ID <= 0 {
+		user := user_repository.GetOneUserById(userId)
+		currentUser.User = user
 	}
 	user_detail_repository.GetUserDetail(&currentUser)
 	c.IndentedJSON(http.StatusOK, currentUser)
