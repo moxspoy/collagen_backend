@@ -15,8 +15,8 @@ type User struct {
 	Email                   sql.NullString `json:"email" gorm:"unique"`
 	PhoneNumber             sql.NullString `json:"phone_number" gorm:"unique"`
 	Name                    string         `json:"name"`
-	Password                string         `json:"password"`
-	Pin                     string         `json:"pin"`
+	Password                string         `json:"-"`
+	Pin                     string         `json:"-"`
 	Status                  int            `json:"status"`
 	PhoneVerificationStatus int            `json:"phone_verification_status"`
 	EmailVerificationStatus int            `json:"email_verification_status"`

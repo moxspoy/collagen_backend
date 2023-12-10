@@ -10,7 +10,7 @@ type OneTimePassword struct {
 	ID        uint      `json:"id" gorm:"primary_key"`
 	UserID    uint      `json:"user_id"`
 	User      User      `json:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	Token     string    `json:"token"`
+	Token     string    `json:"-"`
 	ExpiredAt time.Time `json:"expired_at"`
 	Status    int       `json:"status"`
 }
