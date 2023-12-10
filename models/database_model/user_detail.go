@@ -9,7 +9,7 @@ type UserDetail struct {
 	gorm.Model
 	UserID                    uint      `json:"user_id"`
 	User                      User      `json:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	DateOfBirth               time.Time `json:"date_of_birth"`
+	DateOfBirth               time.Time `json:"date_of_birth" gorm:"default:1900-01-01 01:01:01.111"`
 	Gender                    string    `json:"gender" gorm:"check:gender IN ('Male', 'Female', 'Other')"`
 	AddressLine1              string    `json:"address_line_1"`
 	AddressLine2              string    `json:"address_line_2"`
@@ -22,8 +22,8 @@ type UserDetail struct {
 	SelfieImageURL            string    `json:"selfie_image_url"`
 	IdentityImageURL          string    `json:"identity_image_url"`
 	IdentityAndSelfieImageURL string    `json:"identity_and_selfie_image_url"`
-	IssueDate                 time.Time `json:"issue_date"`
-	ExpiryDate                time.Time `json:"expiry_date"`
+	IssueDate                 time.Time `json:"issue_date"  gorm:"default:1900-01-01 01:01:01.111"`
+	ExpiryDate                time.Time `json:"expiry_date"  gorm:"default:1900-01-01 01:01:01.111"`
 }
 
 func (UserDetail) TableName() string {
