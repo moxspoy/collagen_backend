@@ -320,6 +320,107 @@ paths:
       summary: Request OTP
       tags:
       - OTP
+  /user-detail/info:
+    get:
+      description: This endpoint used to fetch user's data but with more detail
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/database_model.User'
+      security:
+      - ApiKeyAuth: []
+      summary: Get user detail object
+      tags:
+      - User
+  /user-detail/update:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Usually this endpoint used to process kyc
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - in: formData
+        name: address_line_1
+        type: string
+      - in: formData
+        name: address_line_2
+        type: string
+      - in: formData
+        name: city
+        type: string
+      - in: formData
+        name: country
+        type: string
+      - in: formData
+        name: createdAt
+        type: string
+      - in: formData
+        name: date_of_birth
+        type: string
+      - in: formData
+        name: document_number
+        type: string
+      - in: formData
+        name: document_type
+        type: string
+      - in: formData
+        name: expiry_date
+        type: string
+      - in: formData
+        name: gender
+        type: string
+      - in: formData
+        name: id
+        type: integer
+      - in: formData
+        name: identity_and_selfie_image_url
+        type: string
+      - in: formData
+        name: identity_image_url
+        type: string
+      - in: formData
+        name: issue_date
+        type: string
+      - in: formData
+        name: selfie_image_url
+        type: string
+      - in: formData
+        name: state
+        type: string
+      - in: formData
+        name: updatedAt
+        type: string
+      - in: formData
+        name: user_id
+        type: integer
+      - in: formData
+        name: zip_code
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Update user's detail
+      tags:
+      - User
   /user/info:
     get:
       description: This endpoint used to fetch user's data

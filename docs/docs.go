@@ -361,6 +361,172 @@ const docTemplate = `{
                 }
             }
         },
+        "/user-detail/info": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "This endpoint used to fetch user's data but with more detail",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get user detail object",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/database_model.User"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-detail/update": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used to process kyc",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user's detail",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "address_line_1",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "address_line_2",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "city",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "country",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createdAt",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "date_of_birth",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "document_number",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "document_type",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "expiry_date",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "gender",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "id",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "identity_and_selfie_image_url",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "identity_image_url",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "issue_date",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "selfie_image_url",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "state",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updatedAt",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "user_id",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "zip_code",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/user/info": {
             "get": {
                 "security": [
