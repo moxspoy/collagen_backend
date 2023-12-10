@@ -5,8 +5,8 @@ import (
 	"flop/middleware"
 	"flop/models/database_model"
 	"flop/repositories/user_detail_repository"
+	"flop/repositories/user_repository"
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 )
 
@@ -27,17 +27,19 @@ func UpdateUserDetail(c *gin.Context) {
 	var request database_model.UserDetail
 	err := c.Bind(&request)
 	request.UserID = userId
-	log.Print("wkwk", request.Gender)
 
 	if err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, err)
 		return
 	}
 
-	user_detail_repository.UpdateUserDetail(&request)
+	trx := user_detail_repository.UpdateUserDetail(&request)
 
-	if err != nil {
-		c.IndentedJSON(http.StatusInternalServerError, err)
+	user := user_repository.GetOneUserById(userId)
+	request.User = user
+
+	if trx.Error != nil {
+		api_response_helper.GenerateErrorResponse(c, trx.Error)
 		return
 	}
 	api_response_helper.GenerateSuccessResponse(c, "Update user's detail successful", request)

@@ -7,23 +7,23 @@ import (
 
 type UserDetail struct {
 	gorm.Model
-	UserID                    uint      `json:"user_id"`
-	User                      User      `json:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	DateOfBirth               time.Time `json:"date_of_birth" gorm:"default:1900-01-01 01:01:01.111"`
-	Gender                    string    `json:"gender" gorm:"check:gender IN ('Male', 'Female', 'Other')"`
-	AddressLine1              string    `json:"address_line_1"`
-	AddressLine2              string    `json:"address_line_2"`
-	City                      string    `json:"city"`
-	State                     string    `json:"state"`
-	Country                   string    `json:"country"`
-	ZipCode                   int       `json:"zip_code"`
-	DocumentType              string    `json:"document_type" gorm:"check:document_type IN ('Passport', 'Driver''s License', 'ID Card')"`
-	DocumentNumber            string    `json:"document_number"`
-	SelfieImageURL            string    `json:"selfie_image_url"`
-	IdentityImageURL          string    `json:"identity_image_url"`
-	IdentityAndSelfieImageURL string    `json:"identity_and_selfie_image_url"`
-	IssueDate                 time.Time `json:"issue_date"  gorm:"default:1900-01-01 01:01:01.111"`
-	ExpiryDate                time.Time `json:"expiry_date"  gorm:"default:1900-01-01 01:01:01.111"`
+	UserID                    uint      `form:"user_id"`
+	User                      User      `form:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	DateOfBirth               time.Time `form:"date_of_birth" gorm:"default:1900-01-01 01:01:01.111"`
+	Gender                    string    `form:"gender"`
+	AddressLine1              string    `form:"address_line_1"`
+	AddressLine2              string    `form:"address_line_2"`
+	City                      string    `form:"city"`
+	State                     string    `form:"state"`
+	Country                   string    `form:"country"`
+	ZipCode                   int       `form:"zip_code"`
+	DocumentType              string    `form:"document_type"`
+	DocumentNumber            string    `form:"document_number"`
+	SelfieImageURL            string    `form:"selfie_image_url"`
+	IdentityImageURL          string    `form:"identity_image_url"`
+	IdentityAndSelfieImageURL string    `form:"identity_and_selfie_image_url"`
+	IssueDate                 time.Time `form:"issue_date"  gorm:"default:1900-01-01 01:01:01.111"`
+	ExpiryDate                time.Time `form:"expiry_date"  gorm:"default:1900-01-01 01:01:01.111"`
 }
 
 func (UserDetail) TableName() string {
