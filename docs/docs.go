@@ -412,7 +412,7 @@ const docTemplate = `{
                 "tags": [
                     "User"
                 ],
-                "summary": "Update user's detail",
+                "summary": "Update user's selfie image",
                 "parameters": [
                     {
                         "type": "string",
@@ -422,99 +422,11 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "type": "string",
-                        "name": "address_line_1",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "address_line_2",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "city",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "country",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "createdAt",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "date_of_birth",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "document_number",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "document_type",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "expiry_date",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "gender",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "id",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "identity_and_selfie_image_url",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "identity_image_url",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "issue_date",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "selfie_image_url",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "state",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updatedAt",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "user_id",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "zip_code",
-                        "in": "formData"
+                        "type": "file",
+                        "description": "User image that will be saved to the database_model",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -832,17 +744,11 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
-                "password": {
-                    "type": "string"
-                },
                 "phone_number": {
                     "$ref": "#/definitions/sql.NullString"
                 },
                 "phone_verification_status": {
                     "type": "integer"
-                },
-                "pin": {
-                    "type": "string"
                 },
                 "status": {
                     "type": "integer"

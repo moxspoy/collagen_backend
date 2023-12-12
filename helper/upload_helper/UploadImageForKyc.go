@@ -10,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 func UploadImageForKyc(c *gin.Context, path string) {
@@ -38,7 +39,13 @@ func UploadImageForKyc(c *gin.Context, path string) {
 
 	var userDetail database_model.UserDetail
 	userDetail.UserID = userId
-	userDetail.SelfieImageURL = dest
+	if strings.Contains(path, "identity_and_selfie") {
+		userDetail.IdentityAndSelfieImageURL = dest
+	} else if strings.Contains(path, "identity") {
+		userDetail.IdentityImageURL = dest
+	} else {
+		userDetail.SelfieImageURL = dest
+	}
 	trx := user_detail_repository.UpdateUserDetail(&userDetail)
 
 	user := user_repository.GetOneUserById(userId)
