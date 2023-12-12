@@ -2,17 +2,9 @@ package main
 
 import (
 	"flop/config/database"
-	"flop/controllers/api/v1/auth_controller"
-	"flop/controllers/api/v1/otp_controller"
-	"flop/controllers/api/v1/public_controller"
-	"flop/controllers/api/v1/user_controller"
-	"flop/docs"
-	"flop/middleware"
-	"flop/models/database_model"
+	"flop/routes/central_router"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	swaggerfiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
 )
 
@@ -41,68 +33,11 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
+	database.SetupDatabase()
+
 	router := gin.Default()
-	database.ConnectDatabase()
-	err = database.DB.AutoMigrate(&database_model.Users{}, &database_model.AppConfig{}, &database_model.UserLoggedInDevices{}, database_model.OneTimePassword{})
-	if err != nil {
-		log.Fatal("Migration Error:" + err.Error())
-	}
+	central_router.RegisterAllRouter(router)
 
-	docs.SwaggerInfo.BasePath = "/api/v1"
-	apiRouter := router.Group("/api")
-	v1Router := apiRouter.Group("/v1")
-	v1Router.Use(middleware.GuardApiKey())
-
-	v1Router.GET("/app-info", public_controller.GetAppInfo)
-
-	authRouter := v1Router.Group("auth")
-	authRouter.POST("/check-credential", auth_controller.CheckCredential)
-
-	authMiddleware, err := middleware.GetJWTMiddleware()
-
-	if err != nil {
-		log.Fatal("JWT Error:" + err.Error())
-	}
-
-	// When you use jwt.New(), the function is already automatically called for checking,
-	// which means you don't need to call it again.
-	errInit := authMiddleware.MiddlewareInit()
-	if errInit != nil {
-		log.Fatal("authMiddleware.MiddlewareInit() Error:" + errInit.Error())
-	}
-
-	authRouter.POST("/validate-identity", func(context *gin.Context) {
-		auth_controller.ValidateIdentity(context, authMiddleware)
-	})
-	authRouter.POST("/sign-up", func(context *gin.Context) {
-		auth_controller.UserSignUp(context, authMiddleware)
-	})
-
-	// Refresh time can be longer than token timeout
-	authRouter.POST("/refresh-token", func(context *gin.Context) {
-		auth_controller.RefreshToken(context, authMiddleware)
-	})
-
-	userRouter := v1Router.Group("/user")
-	userRouter.Use(authMiddleware.MiddlewareFunc())
-	{
-		userRouter.GET("/info", user_controller.GetUserInfo)
-		userRouter.PUT("/update-phone-number", user_controller.UpdatePhoneNumber)
-		userRouter.PUT("/update-user-name", user_controller.UpdateUserName)
-		userRouter.PUT("/update-pin", user_controller.UpdatePin)
-		userRouter.PUT("/update-email", func(context *gin.Context) {
-			user_controller.UpdateEmail(context, authMiddleware)
-		})
-	}
-
-	otpRouter := v1Router.Group("/otp")
-	otpRouter.Use(authMiddleware.MiddlewareFunc())
-	{
-		otpRouter.POST("/request", otp_controller.RequestOTP)
-		otpRouter.POST("/check", otp_controller.CheckOTP)
-	}
-
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	err = router.Run("localhost:8083")
 	if err != nil {
 		log.Fatal("Error while running server")

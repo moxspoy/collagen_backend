@@ -1,4 +1,4 @@
-package users_repository
+package user_repository
 
 import (
 	"flop/config/database"
@@ -7,5 +7,5 @@ import (
 )
 
 func UpdatePin(id uint, pin string) *gorm.DB {
-	return database.DB.Model(database_model.Users{}).Where("id = ?", id).UpdateColumn("name", pin)
+	return database.DB.Model(database_model.User{}).Where("id = ?", id).UpdateColumn("pin", pin)
 }

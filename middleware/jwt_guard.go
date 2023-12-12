@@ -23,7 +23,7 @@ func GetJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 		MaxRefresh:  time.Hour,
 		IdentityKey: JwtIdentityKey,
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
-			if v, ok := data.(*database_model.Users); ok {
+			if v, ok := data.(*database_model.User); ok {
 				return jwt.MapClaims{
 					"email":  v.Email.String,
 					"userId": v.ID,
@@ -34,7 +34,7 @@ func GetJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 		IdentityHandler: func(c *gin.Context) interface{} {
 			claims := jwt.ExtractClaims(c)
 			email := claims["email"].(string)
-			return &database_model.Users{
+			return &database_model.User{
 				Email: sql.NullString{String: email, Valid: true},
 				ID:    uint(claims["userId"].(float64)),
 			}
@@ -46,7 +46,7 @@ func GetJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 			}
 
 			isPhoneNumber := !(strings.Contains(identityRequest.Credential, "@"))
-			var users []database_model.Users
+			var users []database_model.User
 			var whereClause = "email = ?"
 			if isPhoneNumber {
 				whereClause = "phone_number = ?"
@@ -66,7 +66,7 @@ func GetJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 			return nil, jwt.ErrFailedAuthentication
 		},
 		Authorizator: func(data interface{}, c *gin.Context) bool {
-			if v, ok := data.(*database_model.Users); ok && v.Name == "admin" {
+			if v, ok := data.(*database_model.User); ok && v.Name == "admin" {
 				return true
 			}
 

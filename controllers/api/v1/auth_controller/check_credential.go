@@ -35,7 +35,7 @@ func CheckCredential(c *gin.Context) {
 		return
 	}
 
-	var users []database_model.Users
+	var users []database_model.User
 	var whereClause = "email = ?"
 	if isPhoneNumber {
 		whereClause = "phone_number = ?"
@@ -43,7 +43,7 @@ func CheckCredential(c *gin.Context) {
 	database.DB.Where(whereClause, credential).First(&users)
 	isUserExist := len(users) > 0
 
-	user := database_model.Users{}
+	user := database_model.User{}
 	if isUserExist {
 		user = users[0]
 	}

@@ -361,6 +361,84 @@ const docTemplate = `{
                 }
             }
         },
+        "/user-detail/info": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "This endpoint used to fetch user's data but with more detail",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get user detail object",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/database_model.User"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-detail/update": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used to process kyc",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user's selfie image",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "User image that will be saved to the database_model",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/user/info": {
             "get": {
                 "security": [
@@ -389,7 +467,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/database_model.Users"
+                            "$ref": "#/definitions/database_model.User"
                         }
                     }
                 }
@@ -645,7 +723,7 @@ const docTemplate = `{
                 }
             }
         },
-        "database_model.Users": {
+        "database_model.User": {
             "type": "object",
             "properties": {
                 "createdAt": {
@@ -666,17 +744,11 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
-                "password": {
-                    "type": "string"
-                },
                 "phone_number": {
                     "$ref": "#/definitions/sql.NullString"
                 },
                 "phone_verification_status": {
                     "type": "integer"
-                },
-                "pin": {
-                    "type": "string"
                 },
                 "status": {
                     "type": "integer"

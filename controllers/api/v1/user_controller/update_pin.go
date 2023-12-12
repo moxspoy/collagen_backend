@@ -5,7 +5,7 @@ import (
 	"flop/helper/api_response_helper"
 	"flop/helper/security_helper"
 	"flop/middleware"
-	"flop/repositories/users_repository"
+	"flop/repositories/user_repository"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 )
@@ -46,7 +46,7 @@ func UpdatePin(c *gin.Context) {
 		return
 	}
 
-	if dbc := users_repository.UpdatePin(currentUserId, hashedPin); dbc.Error != nil {
+	if dbc := user_repository.UpdatePin(currentUserId, hashedPin); dbc.Error != nil {
 		api_response_helper.GenerateErrorResponse(c, dbc.Error)
 		return
 	}

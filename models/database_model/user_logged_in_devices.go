@@ -6,7 +6,8 @@ import (
 
 type UserLoggedInDevices struct {
 	gorm.Model
-	UserId           uint   `json:"user_id"`
+	UserID           uint   `json:"user_id"`
+	User             User   `json:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	DeviceModel      string `json:"device_model"`
 	DeviceIdentifier string `json:"device_identifier"`
 	OsVersion        string `json:"os_version"`

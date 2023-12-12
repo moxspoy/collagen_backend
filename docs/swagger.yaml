@@ -47,7 +47,7 @@ definitions:
       operating_time_weekend:
         type: string
     type: object
-  database_model.Users:
+  database_model.User:
     properties:
       createdAt:
         type: string
@@ -61,14 +61,10 @@ definitions:
         type: integer
       name:
         type: string
-      password:
-        type: string
       phone_number:
         $ref: '#/definitions/sql.NullString'
       phone_verification_status:
         type: integer
-      pin:
-        type: string
       status:
         type: integer
       updatedAt:
@@ -320,6 +316,55 @@ paths:
       summary: Request OTP
       tags:
       - OTP
+  /user-detail/info:
+    get:
+      description: This endpoint used to fetch user's data but with more detail
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/database_model.User'
+      security:
+      - ApiKeyAuth: []
+      summary: Get user detail object
+      tags:
+      - User
+  /user-detail/update:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Usually this endpoint used to process kyc
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: User image that will be saved to the database_model
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Update user's selfie image
+      tags:
+      - User
   /user/info:
     get:
       description: This endpoint used to fetch user's data
@@ -335,7 +380,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/database_model.Users'
+            $ref: '#/definitions/database_model.User'
       security:
       - ApiKeyAuth: []
       summary: Get user object
