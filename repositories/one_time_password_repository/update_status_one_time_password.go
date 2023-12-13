@@ -5,16 +5,16 @@ import (
 	"flop/models/database_model"
 )
 
-func UpdateStatusOneTimePassword(id uint, status int) (database_model.OneTimePassword, error) {
+func UpdateStatusOneTimePassword(id uint, status int) error {
 	var otpFromDatabase database_model.OneTimePassword
 	dbc := database.DB.Model(&otpFromDatabase).Where("id = ?", id).UpdateColumn("status", status)
 	if dbc.Error != nil {
-		return otpFromDatabase, dbc.Error
+		return dbc.Error
 	}
 
-	return otpFromDatabase, nil
+	return nil
 }
 
-func UpdateStatusOneTimePasswordToUsed(id uint) (database_model.OneTimePassword, error) {
+func UpdateStatusOneTimePasswordToUsed(id uint) error {
 	return UpdateStatusOneTimePassword(id, 1)
 }
