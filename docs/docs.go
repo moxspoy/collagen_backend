@@ -480,7 +480,7 @@ const docTemplate = `{
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Usually this endpoint used because user fill phone number first",
+                "description": "Usually this endpoint used because user fill phone number first. Note that user need to request otp first",
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -505,6 +505,12 @@ const docTemplate = `{
                         "name": "new_email",
                         "in": "formData",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OTP for authentication (if pin already exist)",
+                        "name": "otp",
+                        "in": "formData"
                     }
                 ],
                 "responses": {
@@ -524,7 +530,7 @@ const docTemplate = `{
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Usually this endpoint used as part of onboarding. Note that it should contains country code like +6285911110000",
+                "description": "Usually this endpoint used as part of onboarding. Note that it should contain country code like +6285911110000. Note that user need to request otp first.",
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -549,6 +555,12 @@ const docTemplate = `{
                         "name": "phone_number",
                         "in": "formData",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OTP for authentication (if pin already exist)",
+                        "name": "otp",
+                        "in": "formData"
                     }
                 ],
                 "responses": {
@@ -593,6 +605,12 @@ const docTemplate = `{
                         "name": "pin",
                         "in": "formData",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OTP for authentication (if pin already exist)",
+                        "name": "otp",
+                        "in": "formData"
                     }
                 ],
                 "responses": {

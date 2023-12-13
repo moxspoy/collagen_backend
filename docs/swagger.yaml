@@ -390,7 +390,8 @@ paths:
     put:
       consumes:
       - multipart/form-data
-      description: Usually this endpoint used because user fill phone number first
+      description: Usually this endpoint used because user fill phone number first.
+        Note that user need to request otp first
       parameters:
       - description: Api Key
         in: header
@@ -401,6 +402,10 @@ paths:
         in: formData
         name: new_email
         required: true
+        type: string
+      - description: OTP for authentication (if pin already exist)
+        in: formData
+        name: otp
         type: string
       produces:
       - application/json
@@ -419,7 +424,8 @@ paths:
       consumes:
       - multipart/form-data
       description: Usually this endpoint used as part of onboarding. Note that it
-        should contains country code like +6285911110000
+        should contain country code like +6285911110000. Note that user need to request
+        otp first.
       parameters:
       - description: Api Key
         in: header
@@ -430,6 +436,10 @@ paths:
         in: formData
         name: phone_number
         required: true
+        type: string
+      - description: OTP for authentication (if pin already exist)
+        in: formData
+        name: otp
         type: string
       produces:
       - application/json
@@ -458,6 +468,10 @@ paths:
         in: formData
         name: pin
         required: true
+        type: string
+      - description: OTP for authentication (if pin already exist)
+        in: formData
+        name: otp
         type: string
       produces:
       - application/json
