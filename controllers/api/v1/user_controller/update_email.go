@@ -4,16 +4,18 @@ import (
 	"flop/helper/api_response_helper"
 	"flop/middleware"
 	"flop/models/database_model"
+	"flop/repositories/one_time_password_repository"
 	"flop/repositories/user_repository"
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"net/http"
 )
 
 // UpdateEmail godoc
 //
 //	@Summary		Update user's email
-//	@Description	Usually this endpoint used because user fill phone number first
+//	@Description	Usually this endpoint used because user fill phone number first. Note that user need to request otp first
 //	@Tags			User
 //	@Accept			multipart/form-data
 //	@Produce		json
@@ -21,12 +23,42 @@ import (
 //	@Router			/user/update-email [put]
 //	@Param			api_key	header string	true "Api Key"
 //	@Param			new_email formData string	true "Email that will be saved to the database_model"
+//	@Param			otp formData string	false "OTP for authentication (if pin already exist)"
 //	@Security		ApiKeyAuth
 func UpdateEmail(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
+	userId := middleware.GetUserIdFromJWT(c)
 	currentEmail := middleware.GetEmailFromJWT(c)
 	newEmail := c.Request.FormValue("new_email")
+	otp := c.Request.FormValue("otp")
 
-	user := database_model.User{}
+	// Validation
+	validate := validator.New(validator.WithRequiredStructEnabled())
+	err := validate.Var(newEmail, "required,email")
+
+	if err != nil {
+		api_response_helper.GenerateErrorResponse(c, err)
+		return
+	}
+
+	// Check OTP
+	user := user_repository.GetOneUserById(userId)
+	if user.Email.Valid && user.IsEmailVerified() {
+		err = validate.Var(otp, "required,numeric")
+
+		if err != nil {
+			api_response_helper.GenerateErrorResponse(c, err)
+			return
+		}
+
+		err = one_time_password_repository.CheckOneTimePassword(userId, otp)
+		if err != nil {
+			api_response_helper.GenerateErrorResponse(c, err)
+			return
+		}
+	}
+
+	// OTP is match, update email and JWT
+	user = database_model.User{}
 	user_repository.UpdateUserEmail(&user, currentEmail, newEmail)
 
 	newJWT, _, err := authMiddleware.TokenGenerator(&user)
