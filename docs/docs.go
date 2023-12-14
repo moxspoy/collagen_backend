@@ -666,6 +666,56 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/user/verify-phone-number": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used as part of onboarding. Note that user need to request otp first.",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Verify user's phone number",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Phone number that will be verified",
+                        "name": "phone_number",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OTP for authentication (if pin already exist)",
+                        "name": "otp",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
