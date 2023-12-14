@@ -1,10 +1,10 @@
 package user_detail_controller
 
 import (
-	"flop/middleware"
-	"flop/models/database_model"
-	"flop/repositories/user_detail_repository"
-	"flop/repositories/user_repository"
+	"collagen/middleware"
+	"collagen/models/database_model"
+	"collagen/repositories/user_detail_repository"
+	"collagen/repositories/user_repository"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

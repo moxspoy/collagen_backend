@@ -1,11 +1,11 @@
 package middleware
 
 import (
+	"collagen/config/database"
+	"collagen/models/api_request_model"
+	"collagen/models/database_model"
 	"database/sql"
 	"errors"
-	"flop/config/database"
-	"flop/models/api_request_model"
-	"flop/models/database_model"
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"

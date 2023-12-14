@@ -1,7 +1,7 @@
 package database
 
 import (
-	"flop/models/database_model"
+	"collagen/models/database_model"
 	"gorm.io/gorm"
 )
 

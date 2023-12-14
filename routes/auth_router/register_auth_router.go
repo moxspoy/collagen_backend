@@ -1,7 +1,7 @@
 package auth_router
 
 import (
-	"flop/controllers/api/v1/auth_controller"
+	"collagen/controllers/api/v1/auth_controller"
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 )

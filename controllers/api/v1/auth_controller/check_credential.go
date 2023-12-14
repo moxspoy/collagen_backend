@@ -1,9 +1,9 @@
 package auth_controller
 
 import (
-	"flop/config/database"
-	"flop/models/api_response_model"
-	"flop/models/database_model"
+	"collagen/config/database"
+	"collagen/models/api_response_model"
+	"collagen/models/database_model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

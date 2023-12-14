@@ -1,4 +1,4 @@
-module flop
+module collagen
 
 go 1.21
 

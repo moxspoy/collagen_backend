@@ -1,13 +1,13 @@
 package auth_controller
 
 import (
+	"collagen/helper/api_response_helper"
+	"collagen/models/api_request_model"
+	"collagen/models/database_model"
+	"collagen/repositories/user_logged_in_devices_repository"
+	"collagen/repositories/user_repository"
 	"database/sql"
 	"errors"
-	"flop/helper/api_response_helper"
-	"flop/models/api_request_model"
-	"flop/models/database_model"
-	"flop/repositories/user_logged_in_devices_repository"
-	"flop/repositories/user_repository"
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"net/http"

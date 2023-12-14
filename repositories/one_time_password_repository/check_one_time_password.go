@@ -1,10 +1,10 @@
 package one_time_password_repository
 
 import (
+	"collagen/config/database"
+	"collagen/helper/security_helper"
+	"collagen/models/database_model"
 	"errors"
-	"flop/config/database"
-	"flop/helper/security_helper"
-	"flop/models/database_model"
 )
 
 func CheckOneTimePassword(userId uint, otpRequest string) error {

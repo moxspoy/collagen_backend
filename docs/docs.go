@@ -867,7 +867,7 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "localhost:8083",
 	BasePath:         "/api/v1",
 	Schemes:          []string{},
-	Title:            "Flop Web Service",
+	Title:            "Collagen Web Service",
 	Description:      "Web service API in Go using Gin framework.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,

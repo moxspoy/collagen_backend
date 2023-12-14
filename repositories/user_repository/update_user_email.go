@@ -1,8 +1,8 @@
 package user_repository
 
 import (
-	"flop/config/database"
-	"flop/models/database_model"
+	"collagen/config/database"
+	"collagen/models/database_model"
 )
 
 func UpdateUserEmail(user *database_model.User, oldEmail string, newEmail string) {
