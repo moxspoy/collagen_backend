@@ -7,14 +7,18 @@ import (
 	"flop/models/database_model"
 )
 
-func CheckOneTimePassword(userId uint, otpRequest string) (database_model.OneTimePassword, error) {
+func CheckOneTimePassword(userId uint, otpRequest string) error {
 	var otpFromDatabase database_model.OneTimePassword
-	dbc := database.DB.Last(&otpFromDatabase, "user_id = ? and status = ? and token = ?", userId, 0, otpRequest)
-	if dbc.Error != nil {
-		return otpFromDatabase, dbc.Error
+	tx := database.DB.Last(&otpFromDatabase, "user_id = ? and status = ? and token = ?", userId, 0, otpRequest)
+	if tx.Error != nil {
+		return tx.Error
 	}
 	if security_helper.IsValidOtp(otpFromDatabase) {
-		return otpFromDatabase, nil
+		err := UpdateStatusOneTimePasswordToUsed(otpFromDatabase.ID)
+		if err != nil {
+			return err
+		}
+		return nil
 	}
-	return otpFromDatabase, errors.New("OTP is not valid")
+	return errors.New("OTP is not valid")
 }

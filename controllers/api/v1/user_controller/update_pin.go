@@ -5,6 +5,7 @@ import (
 	"flop/helper/api_response_helper"
 	"flop/helper/security_helper"
 	"flop/middleware"
+	"flop/repositories/one_time_password_repository"
 	"flop/repositories/user_repository"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -21,10 +22,14 @@ import (
 //	@Router			/user/update-pin [put]
 //	@Param			api_key	header string	true "Api Key"
 //	@Param			pin formData string	true "6 digits that will be saved to the database_model"
+//	@Param			otp formData string	false "OTP for authentication (if pin already exist)"
 //	@Security		ApiKeyAuth
 func UpdatePin(c *gin.Context) {
 	currentUserId := middleware.GetUserIdFromJWT(c)
 	pin := c.Request.FormValue("pin")
+	otp := c.Request.FormValue("otp")
+
+	// Validation
 
 	if pin == "" {
 		api_response_helper.GenerateErrorResponse(c, errors.New("pin can not be empty"))
@@ -39,6 +44,28 @@ func UpdatePin(c *gin.Context) {
 		return
 	}
 
+	// Check OTP
+	user := user_repository.GetOneUserById(currentUserId)
+	if user.IsPinRegistered() {
+		if otp == "" {
+			api_response_helper.GenerateErrorResponse(c, errors.New("OTP can not be empty"))
+			return
+		}
+		errs = validate.Var(otp, "required,numeric")
+		if errs != nil {
+			api_response_helper.GenerateErrorResponse(c, errs)
+			return
+		}
+
+		errs = one_time_password_repository.CheckOneTimePassword(currentUserId, otp)
+
+		if errs != nil {
+			api_response_helper.GenerateErrorResponse(c, errs)
+			return
+		}
+	}
+
+	// Update Pin
 	hashedPin, hashingError := security_helper.HashPassword(pin)
 
 	if hashingError != nil {

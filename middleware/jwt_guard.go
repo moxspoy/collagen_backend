@@ -8,6 +8,7 @@ import (
 	"flop/models/database_model"
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 	"os"
 	"strings"
 	"time"
@@ -36,7 +37,7 @@ func GetJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 			email := claims["email"].(string)
 			return &database_model.User{
 				Email: sql.NullString{String: email, Valid: true},
-				ID:    uint(claims["userId"].(float64)),
+				Model: gorm.Model{ID: uint(claims["userId"].(float64))},
 			}
 		},
 		Authenticator: func(c *gin.Context) (interface{}, error) {

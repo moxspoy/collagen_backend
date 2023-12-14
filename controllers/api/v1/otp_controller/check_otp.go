@@ -29,17 +29,10 @@ func CheckOTP(c *gin.Context) {
 		return
 	}
 
-	otpFromDatabase, err := one_time_password_repository.CheckOneTimePassword(userId, otp)
+	err := one_time_password_repository.CheckOneTimePassword(userId, otp)
 
 	if err != nil {
 		api_response_helper.GenerateErrorResponse(c, err)
-		return
-	}
-
-	_, errUpdateStatus := one_time_password_repository.UpdateStatusOneTimePasswordToUsed(otpFromDatabase.ID)
-
-	if err != nil {
-		api_response_helper.GenerateErrorResponse(c, errUpdateStatus)
 		return
 	}
 

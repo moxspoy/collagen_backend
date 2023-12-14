@@ -10,20 +10,20 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-// UpdatePhoneNumber godoc
+// VerifyPhoneNumber godoc
 //
-//	@Summary		Update user's phone number
-//	@Description	Usually this endpoint used as part of onboarding. Note that it should contain country code like +6285911110000. Note that user need to request otp first.
+//	@Summary		Verify user's phone number
+//	@Description	Usually this endpoint used as part of onboarding. Note that user need to request otp first.
 //	@Tags			User
 //	@Accept			multipart/form-data
 //	@Produce		json
 //	@Success		200	{object}	api_response_model.SuccessAPIResponse
-//	@Router			/user/update-phone-number [put]
+//	@Router			/user/verify-phone-number [put]
 //	@Param			api_key	header string	true "Api Key"
-//	@Param			phone_number formData string	true "Phone number that will be saved to the database_model"
+//	@Param			phone_number formData string	true "Phone number that will be verified"
 //	@Param			otp formData string	false "OTP for authentication (if pin already exist)"
 //	@Security		ApiKeyAuth
-func UpdatePhoneNumber(c *gin.Context) {
+func VerifyPhoneNumber(c *gin.Context) {
 	currentUserId := middleware.GetUserIdFromJWT(c)
 	phoneNumber := c.Request.FormValue("phone_number")
 	otp := c.Request.FormValue("otp")
@@ -42,26 +42,23 @@ func UpdatePhoneNumber(c *gin.Context) {
 	}
 
 	// Check OTP
-	user := user_repository.GetOneUserById(currentUserId)
-	if user.IsPhoneVerified() {
-		errs = validate.Var(otp, "required,numeric")
-		if errs != nil {
-			api_response_helper.GenerateErrorResponse(c, errs)
-			return
-		}
-
-		errs = one_time_password_repository.CheckOneTimePassword(currentUserId, otp)
-
-		if errs != nil {
-			api_response_helper.GenerateErrorResponse(c, errs)
-			return
-		}
+	errs = validate.Var(otp, "required,numeric")
+	if errs != nil {
+		api_response_helper.GenerateErrorResponse(c, errs)
+		return
 	}
 
-	if tx := user_repository.UpdatePhoneNumber(currentUserId, phoneNumber); tx.Error != nil {
+	errs = one_time_password_repository.CheckOneTimePassword(currentUserId, otp)
+
+	if errs != nil {
+		api_response_helper.GenerateErrorResponse(c, errs)
+		return
+	}
+
+	if tx := user_repository.UpdatePhoneVerificationStatus(currentUserId, 1); tx.Error != nil {
 		api_response_helper.GenerateErrorResponse(c, tx.Error)
 		return
 	}
 
-	api_response_helper.GenerateSuccessResponse(c, "Update phone number successful", phoneNumber)
+	api_response_helper.GenerateSuccessResponse(c, "Update phone verification status successful", phoneNumber)
 }

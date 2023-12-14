@@ -2,6 +2,7 @@ package auth_controller
 
 import (
 	"database/sql"
+	"errors"
 	"flop/helper/api_response_helper"
 	"flop/models/api_request_model"
 	"flop/models/database_model"
@@ -33,6 +34,11 @@ func UserSignUp(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
+		return
+	}
+
+	if (request.PhoneNumber == "" && request.Email == "") || request.Credential == "" {
+		api_response_helper.GenerateErrorResponse(c, errors.New("credential can not be blank"))
 		return
 	}
 
