@@ -9,6 +9,7 @@ import (
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"log"
 	"net/http"
 )
 
@@ -27,7 +28,6 @@ import (
 //	@Security		ApiKeyAuth
 func UpdateEmail(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 	userId := middleware.GetUserIdFromJWT(c)
-	currentEmail := middleware.GetEmailFromJWT(c)
 	newEmail := c.Request.FormValue("new_email")
 	otp := c.Request.FormValue("otp")
 
@@ -59,8 +59,9 @@ func UpdateEmail(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 
 	// OTP is match, update email and JWT
 	user = database_model.User{}
-	user_repository.UpdateUserEmail(&user, currentEmail, newEmail)
+	user_repository.UpdateUserEmail(&user, userId, newEmail)
 
+	log.Print("hehe", user)
 	newJWT, _, err := authMiddleware.TokenGenerator(&user)
 
 	if err != nil {
