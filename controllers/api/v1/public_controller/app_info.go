@@ -1,8 +1,8 @@
 package public_controller
 
 import (
-	"flop/config/database"
-	"flop/models/database_model"
+	"collagen/config/database"
+	"collagen/models/database_model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

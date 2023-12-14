@@ -1,7 +1,7 @@
 package public_router
 
 import (
-	"flop/controllers/api/v1/public_controller"
+	"collagen/controllers/api/v1/public_controller"
 	"github.com/gin-gonic/gin"
 )
 

@@ -1,11 +1,11 @@
-# flop_backend
-a golang project powered by gin as web service for flop
+# collagen_backend
+a golang project powered by gin as web service for collagen
 
-# Flop: Student Social Media Platform
+# Collagen: Student Social Media Platform
 
 <img src="https://iconape.com/wp-content/png_logo_vector/gopher.png" alt="drawing" width="200"/>
 
-Flop is a social media platform tailored specifically for students, designed to support their academic journey while providing a space for collaboration, discussion, and sharing experiences. Think of it as the "Reddit for students," built with the efficiency and power of the Gin framework in Golang.
+Collagen is a social media platform tailored specifically for students, designed to support their academic journey while providing a space for collaboration, discussion, and sharing experiences. Think of it as the "Reddit for students," built with the efficiency and power of the Gin framework in Golang.
 
 ## Features
 
@@ -18,29 +18,29 @@ Flop is a social media platform tailored specifically for students, designed to 
 
 ## Getting Started
 
-To run Flop locally, follow these simple steps:
+To run Collagen locally, follow these simple steps:
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/flop_backend/flop.git
-   cd flop
+   git clone https://github.com/moxspoy/collagen_backend.git
+   cd collagen_backend
    ```
-
+[config](.git%2Fconfig)
 2. **Install Dependencies:**
    ```bash
    go mod download
    ```
 
-3. **Run the Application:**
+3. **Run the Application:**[config](.git%2Fconfig)
    ```bash
    go run main.go
    ```
 
-   Flop will be accessible at `http://localhost:8083`.
+   Collagen will be accessible at `http://localhost:8083`.
 
 ## Contributing
 
-We welcome contributions to make Flop even better! To contribute, follow these steps:
+We welcome contributions to make Collagen even better! To contribute, follow these steps:
 
 1. Fork the repository.
 2. Create a new branch: `git checkout -b feature/your-feature`.
@@ -60,7 +60,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- Hat tip to the contributors who make Flop possible.
+- Hat tip to the contributors who make Collagen possible.
 - Inspired by the desire to create a supportive community for students.
 
-Feel free to explore, contribute, and make Flop a vibrant space for students worldwide!
+Feel free to explore, contribute, and make Collagen a vibrant space for students worldwide!

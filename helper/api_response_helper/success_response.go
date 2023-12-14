@@ -2,7 +2,7 @@ package api_response_helper
 
 import "C"
 import (
-	"flop/models/api_response_model"
+	"collagen/models/api_response_model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

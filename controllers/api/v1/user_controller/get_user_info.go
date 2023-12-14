@@ -1,8 +1,8 @@
 package user_controller
 
 import (
-	"flop/middleware"
-	"flop/repositories/user_repository"
+	"collagen/middleware"
+	"collagen/repositories/user_repository"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

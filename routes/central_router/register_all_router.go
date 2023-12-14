@@ -1,14 +1,14 @@
 package central_router
 
 import (
-	"flop/controllers/api/v1/auth_controller"
-	"flop/middleware"
-	"flop/routes/auth_router"
-	"flop/routes/otp_router"
-	"flop/routes/public_router"
-	"flop/routes/swagger_router"
-	"flop/routes/user_detail_router"
-	"flop/routes/user_router"
+	"collagen/controllers/api/v1/auth_controller"
+	"collagen/middleware"
+	"collagen/routes/auth_router"
+	"collagen/routes/otp_router"
+	"collagen/routes/public_router"
+	"collagen/routes/swagger_router"
+	"collagen/routes/user_detail_router"
+	"collagen/routes/user_router"
 	"github.com/gin-gonic/gin"
 	"log"
 )

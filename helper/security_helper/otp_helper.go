@@ -1,8 +1,8 @@
 package security_helper
 
 import (
+	"collagen/models/database_model"
 	"crypto/rand"
-	"flop/models/database_model"
 	"time"
 )
 

@@ -1,11 +1,11 @@
 package user_controller
 
 import (
-	"flop/helper/api_response_helper"
-	"flop/middleware"
-	"flop/models/database_model"
-	"flop/repositories/one_time_password_repository"
-	"flop/repositories/user_repository"
+	"collagen/helper/api_response_helper"
+	"collagen/middleware"
+	"collagen/models/database_model"
+	"collagen/repositories/one_time_password_repository"
+	"collagen/repositories/user_repository"
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

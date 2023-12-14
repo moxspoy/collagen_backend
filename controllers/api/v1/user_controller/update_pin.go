@@ -1,12 +1,12 @@
 package user_controller
 
 import (
+	"collagen/helper/api_response_helper"
+	"collagen/helper/security_helper"
+	"collagen/middleware"
+	"collagen/repositories/one_time_password_repository"
+	"collagen/repositories/user_repository"
 	"errors"
-	"flop/helper/api_response_helper"
-	"flop/helper/security_helper"
-	"flop/middleware"
-	"flop/repositories/one_time_password_repository"
-	"flop/repositories/user_repository"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 )

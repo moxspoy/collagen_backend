@@ -1,7 +1,7 @@
 package user_detail_controller
 
 import (
-	"flop/helper/upload_helper"
+	"collagen/helper/upload_helper"
 	"github.com/gin-gonic/gin"
 )
 

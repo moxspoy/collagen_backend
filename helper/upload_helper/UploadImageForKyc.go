@@ -1,12 +1,12 @@
 package upload_helper
 
 import (
+	"collagen/helper/api_response_helper"
+	"collagen/middleware"
+	"collagen/models/database_model"
+	"collagen/repositories/user_detail_repository"
+	"collagen/repositories/user_repository"
 	"errors"
-	"flop/helper/api_response_helper"
-	"flop/middleware"
-	"flop/models/database_model"
-	"flop/repositories/user_detail_repository"
-	"flop/repositories/user_repository"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"

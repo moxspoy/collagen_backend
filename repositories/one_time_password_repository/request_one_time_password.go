@@ -1,8 +1,8 @@
 package one_time_password_repository
 
 import (
-	"flop/config/database"
-	"flop/models/database_model"
+	"collagen/config/database"
+	"collagen/models/database_model"
 	"gorm.io/gorm"
 )
 

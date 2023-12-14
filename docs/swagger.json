@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "Web service API in Go using Gin framework.",
-        "title": "Flop Web Service",
+        "title": "Collagen Web Service",
         "termsOfService": "https://tos.santoshk.dev",
         "contact": {
             "name": "M Nurilman Baehaqi",

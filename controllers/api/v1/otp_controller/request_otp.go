@@ -1,11 +1,11 @@
 package otp_controller
 
 import (
-	"flop/helper/api_response_helper"
-	"flop/helper/security_helper"
-	"flop/middleware"
-	"flop/models/database_model"
-	"flop/repositories/one_time_password_repository"
+	"collagen/helper/api_response_helper"
+	"collagen/helper/security_helper"
+	"collagen/middleware"
+	"collagen/models/database_model"
+	"collagen/repositories/one_time_password_repository"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"

@@ -1,10 +1,10 @@
 package otp_controller
 
 import (
+	"collagen/helper/api_response_helper"
+	"collagen/middleware"
+	"collagen/repositories/one_time_password_repository"
 	"errors"
-	"flop/helper/api_response_helper"
-	"flop/middleware"
-	"flop/repositories/one_time_password_repository"
 	"github.com/gin-gonic/gin"
 )
 

@@ -1,14 +1,14 @@
 package main
 
 import (
-	"flop/config/database"
-	"flop/routes/central_router"
+	"collagen/config/database"
+	"collagen/routes/central_router"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"log"
 )
 
-// @title           Flop Web Service
+// @title           Collagen Web Service
 // @version         1.0
 // @description     Web service API in Go using Gin framework.
 // @termsOfService  https://tos.santoshk.dev
