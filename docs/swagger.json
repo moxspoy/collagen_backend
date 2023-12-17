@@ -355,6 +355,131 @@
                 }
             }
         },
+        "/universities/all": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "This endpoint used to fetch all universities data",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all universities object",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/universities/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "This endpoint used to create university when it is not available yet on the database",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create university object.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "acronym",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "addressID",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "State owned (1) or private (2)",
+                        "name": "category",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createdAt",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "id",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "nameEn",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Active (1) or Not Active (2)",
+                        "name": "status",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updatedAt",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "website",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "yearFounded",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/user-detail/info": {
             "get": {
                 "security": [

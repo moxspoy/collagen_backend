@@ -17,7 +17,7 @@ import (
 //	@Router			/universities/create [post]
 //	@Param			api_key	header string	true "Api Key"
 //	@Security		ApiKeyAuth
-//	@Param			data formData api_request_model.University true "Request object"
+//	@Param			data formData database_model.University true "Request object"
 func CreateUniversity(c *gin.Context) {
 	var request database_model.University
 	if err := c.ShouldBind(&request); err != nil {

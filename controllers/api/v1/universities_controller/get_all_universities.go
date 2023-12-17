@@ -12,7 +12,7 @@ import (
 //	@Description	This endpoint used to fetch all universities data
 //	@Tags			User
 //	@Produce		json
-//	@Success		200	{object} []database_model.Universities
+//	@Success		200	{object} api_response_model.SuccessAPIResponse
 //	@Router			/universities/all [get]
 //	@Param			api_key	header string	true "Api Key"
 //	@Security		ApiKeyAuth

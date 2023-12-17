@@ -316,6 +316,84 @@ paths:
       summary: Request OTP
       tags:
       - OTP
+  /universities/all:
+    get:
+      description: This endpoint used to fetch all universities data
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all universities object
+      tags:
+      - User
+  /universities/create:
+    post:
+      description: This endpoint used to create university when it is not available
+        yet on the database
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - in: formData
+        name: acronym
+        type: string
+      - in: formData
+        name: addressID
+        type: integer
+      - description: State owned (1) or private (2)
+        in: formData
+        name: category
+        type: integer
+      - in: formData
+        name: createdAt
+        type: string
+      - in: formData
+        name: id
+        type: integer
+      - in: formData
+        name: name
+        type: string
+      - in: formData
+        name: nameEn
+        type: string
+      - description: Active (1) or Not Active (2)
+        in: formData
+        name: status
+        type: integer
+      - in: formData
+        name: updatedAt
+        type: string
+      - in: formData
+        name: website
+        type: string
+      - in: formData
+        name: yearFounded
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Create university object.
+      tags:
+      - User
   /user-detail/info:
     get:
       description: This endpoint used to fetch user's data but with more detail
