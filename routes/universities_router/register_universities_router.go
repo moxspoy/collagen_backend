@@ -11,5 +11,6 @@ func RegisterUniversitiesRouter(v1Router *gin.RouterGroup, authMiddleware *jwt.G
 	universitiesRouter.Use(authMiddleware.MiddlewareFunc())
 	{
 		universitiesRouter.GET("/all", universities_controller.GetAllUniversities)
+		universitiesRouter.POST("/create", universities_controller.CreateUniversity)
 	}
 }
