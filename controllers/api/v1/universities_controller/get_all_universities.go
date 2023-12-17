@@ -9,7 +9,7 @@ import (
 // GetAllUniversities godoc
 //
 //	@Summary		Get all universities object
-//	@Description	This endpoint used to fetch user's data
+//	@Description	This endpoint used to fetch all universities data
 //	@Tags			User
 //	@Produce		json
 //	@Success		200	{object} []database_model.Universities
