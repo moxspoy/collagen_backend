@@ -6,7 +6,7 @@ import (
 
 type University struct {
 	gorm.Model
-	Name    string
+	Name    string `binding:"required"`
 	NameEn  string
 	Acronym string
 
