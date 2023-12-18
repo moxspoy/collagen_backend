@@ -16,9 +16,10 @@ type University struct {
 	// State owned (1) or private (2)
 	Category int16
 
-	Website     string
-	YearFounded int16
-	AddressID   int16
+	Website         string
+	YearFounded     int16
+	IndonesiaAreaID uint
+	IndonesiaArea   IndonesiaArea `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
 
 func (University) TableName() string {
