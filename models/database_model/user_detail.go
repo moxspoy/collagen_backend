@@ -7,8 +7,6 @@ import (
 
 type UserDetail struct {
 	gorm.Model
-	UserID                    uint      `form:"user_id"`
-	User                      User      `form:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	DateOfBirth               time.Time `form:"date_of_birth" gorm:"default:1900-01-01 01:01:01.111"`
 	Gender                    string    `form:"gender"`
 	IndonesiaAreaID           uint
