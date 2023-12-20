@@ -47,6 +47,57 @@ definitions:
       operating_time_weekend:
         type: string
     type: object
+  database_model.IndonesiaArea:
+    properties:
+      code:
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      name:
+        type: string
+      updatedAt:
+        type: string
+    required:
+    - code
+    - name
+    type: object
+  database_model.University:
+    properties:
+      acronym:
+        type: string
+      category:
+        description: State owned (1) or private (2)
+        type: integer
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      indonesiaArea:
+        $ref: '#/definitions/database_model.IndonesiaArea'
+      indonesiaAreaID:
+        type: integer
+      name:
+        type: string
+      nameEn:
+        type: string
+      status:
+        description: Active (1) or Not Active (2)
+        type: integer
+      updatedAt:
+        type: string
+      website:
+        type: string
+      yearFounded:
+        type: integer
+    required:
+    - name
+    type: object
   database_model.User:
     properties:
       createdAt:
@@ -67,8 +118,61 @@ definitions:
         type: integer
       status:
         type: integer
+      university:
+        $ref: '#/definitions/database_model.University'
+      universityID:
+        type: integer
       updatedAt:
         type: string
+      userDetail:
+        $ref: '#/definitions/database_model.UserDetail'
+      userDetailID:
+        type: integer
+    type: object
+  database_model.UserDetail:
+    properties:
+      address_line_1:
+        type: string
+      address_line_2:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      createdAt:
+        type: string
+      date_of_birth:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      document_number:
+        type: string
+      document_type:
+        type: string
+      expiry_date:
+        type: string
+      gender:
+        type: string
+      id:
+        type: integer
+      identity_and_selfie_image_url:
+        type: string
+      identity_image_url:
+        type: string
+      indonesiaArea:
+        $ref: '#/definitions/database_model.IndonesiaArea'
+      indonesiaAreaID:
+        type: integer
+      issue_date:
+        type: string
+      selfie_image_url:
+        type: string
+      state:
+        type: string
+      updatedAt:
+        type: string
+      zip_code:
+        type: integer
     type: object
   gorm.DeletedAt:
     properties:
@@ -350,9 +454,6 @@ paths:
       - in: formData
         name: acronym
         type: string
-      - in: formData
-        name: addressID
-        type: integer
       - description: State owned (1) or private (2)
         in: formData
         name: category
@@ -364,7 +465,11 @@ paths:
         name: id
         type: integer
       - in: formData
+        name: indonesiaAreaID
+        type: integer
+      - in: formData
         name: name
+        required: true
         type: string
       - in: formData
         name: nameEn
