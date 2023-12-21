@@ -12,5 +12,7 @@ func RunAutoMigration(database *gorm.DB) error {
 		&database_model.UserLoggedInDevices{},
 		&database_model.OneTimePassword{},
 		&database_model.UserDetail{},
+		&database_model.University{},
+		&database_model.IndonesiaArea{},
 	)
 }

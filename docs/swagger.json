@@ -355,6 +355,132 @@
                 }
             }
         },
+        "/universities/all": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "This endpoint used to fetch all universities data",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all universities object",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/universities/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "This endpoint used to create university when it is not available yet on the database",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create university object.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "acronym",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "State owned (1) or private (2)",
+                        "name": "category",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createdAt",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "id",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "indonesiaAreaID",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "nameEn",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Active (1) or Not Active (2)",
+                        "name": "status",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updatedAt",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "website",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "yearFounded",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/user-detail/info": {
             "get": {
                 "security": [
@@ -785,6 +911,82 @@
                 }
             }
         },
+        "database_model.IndonesiaArea": {
+            "type": "object",
+            "required": [
+                "code",
+                "name"
+            ],
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/gorm.DeletedAt"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "database_model.University": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "acronym": {
+                    "type": "string"
+                },
+                "category": {
+                    "description": "State owned (1) or private (2)",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/gorm.DeletedAt"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "indonesiaArea": {
+                    "$ref": "#/definitions/database_model.IndonesiaArea"
+                },
+                "indonesiaAreaID": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nameEn": {
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Active (1) or Not Active (2)",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "website": {
+                    "type": "string"
+                },
+                "yearFounded": {
+                    "type": "integer"
+                }
+            }
+        },
         "database_model.User": {
             "type": "object",
             "properties": {
@@ -815,8 +1017,88 @@
                 "status": {
                     "type": "integer"
                 },
+                "university": {
+                    "$ref": "#/definitions/database_model.University"
+                },
+                "universityID": {
+                    "type": "integer"
+                },
                 "updatedAt": {
                     "type": "string"
+                },
+                "userDetail": {
+                    "$ref": "#/definitions/database_model.UserDetail"
+                },
+                "userDetailID": {
+                    "type": "integer"
+                }
+            }
+        },
+        "database_model.UserDetail": {
+            "type": "object",
+            "properties": {
+                "address_line_1": {
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "date_of_birth": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/gorm.DeletedAt"
+                },
+                "document_number": {
+                    "type": "string"
+                },
+                "document_type": {
+                    "type": "string"
+                },
+                "expiry_date": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "identity_and_selfie_image_url": {
+                    "type": "string"
+                },
+                "identity_image_url": {
+                    "type": "string"
+                },
+                "indonesiaArea": {
+                    "$ref": "#/definitions/database_model.IndonesiaArea"
+                },
+                "indonesiaAreaID": {
+                    "type": "integer"
+                },
+                "issue_date": {
+                    "type": "string"
+                },
+                "selfie_image_url": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "zip_code": {
+                    "type": "integer"
                 }
             }
         },
