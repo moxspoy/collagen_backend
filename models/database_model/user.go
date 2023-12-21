@@ -19,10 +19,6 @@ type User struct {
 	Status                  int            `json:"status"`
 	PhoneVerificationStatus int            `json:"phone_verification_status"`
 	EmailVerificationStatus int            `json:"email_verification_status"`
-	UniversityID            uint
-	University              University `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	UserDetailID            uint
-	UserDetail              UserDetail `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
 
 func (User) TableName() string {

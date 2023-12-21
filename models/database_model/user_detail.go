@@ -24,6 +24,8 @@ type UserDetail struct {
 	IdentityAndSelfieImageURL string        `form:"identity_and_selfie_image_url"`
 	IssueDate                 time.Time     `form:"issue_date"  gorm:"default:1900-01-01 01:01:01.111"`
 	ExpiryDate                time.Time     `form:"expiry_date"  gorm:"default:1900-01-01 01:01:01.111"`
+	User                      User          `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	UserID                    uint
 }
 
 func (UserDetail) TableName() string {
