@@ -749,6 +749,39 @@ paths:
       summary: Update user's name
       tags:
       - User
+  /user/verify-email:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Usually this endpoint used as part of onboarding. Note that user
+        need to request otp first.
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: Email that will be verified
+        in: formData
+        name: email
+        required: true
+        type: string
+      - description: OTP for authentication (if pin already exist)
+        in: formData
+        name: otp
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Verify user's email
+      tags:
+      - User
   /user/verify-phone-number:
     put:
       consumes:
