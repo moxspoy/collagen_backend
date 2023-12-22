@@ -14,5 +14,7 @@ func RunAutoMigration(database *gorm.DB) error {
 		&database_model.UserDetail{},
 		&database_model.University{},
 		&database_model.IndonesiaArea{},
+		&database_model.Post{},
+		&database_model.Comment{},
 	)
 }
