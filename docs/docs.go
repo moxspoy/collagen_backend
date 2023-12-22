@@ -900,19 +900,19 @@ const docTemplate = `{
         "database_model.AppConfigResponse": {
             "type": "object",
             "properties": {
-                "customer_friend_phone_number": {
+                "customerFriendPhoneNumber": {
                     "type": "string"
                 },
                 "maintenance": {
                     "type": "string"
                 },
-                "minimum_version": {
+                "minimumVersion": {
                     "type": "string"
                 },
-                "operating_time_weekday": {
+                "operatingTimeWeekday": {
                     "type": "string"
                 },
-                "operating_time_weekend": {
+                "operatingTimeWeekend": {
                     "type": "string"
                 }
             }
@@ -944,55 +944,6 @@ const docTemplate = `{
                 }
             }
         },
-        "database_model.University": {
-            "type": "object",
-            "required": [
-                "name"
-            ],
-            "properties": {
-                "acronym": {
-                    "type": "string"
-                },
-                "category": {
-                    "description": "State owned (1) or private (2)",
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "$ref": "#/definitions/gorm.DeletedAt"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "indonesiaArea": {
-                    "$ref": "#/definitions/database_model.IndonesiaArea"
-                },
-                "indonesiaAreaID": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "nameEn": {
-                    "type": "string"
-                },
-                "status": {
-                    "description": "Active (1) or Not Active (2)",
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "type": "string"
-                },
-                "website": {
-                    "type": "string"
-                },
-                "yearFounded": {
-                    "type": "integer"
-                }
-            }
-        },
         "database_model.User": {
             "type": "object",
             "properties": {
@@ -1005,7 +956,7 @@ const docTemplate = `{
                 "email": {
                     "$ref": "#/definitions/sql.NullString"
                 },
-                "email_verification_status": {
+                "emailVerificationStatus": {
                     "type": "integer"
                 },
                 "id": {
@@ -1014,97 +965,17 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
-                "phone_number": {
+                "phoneNumber": {
                     "$ref": "#/definitions/sql.NullString"
                 },
-                "phone_verification_status": {
+                "phoneVerificationStatus": {
                     "type": "integer"
                 },
                 "status": {
                     "type": "integer"
                 },
-                "university": {
-                    "$ref": "#/definitions/database_model.University"
-                },
-                "universityID": {
-                    "type": "integer"
-                },
                 "updatedAt": {
                     "type": "string"
-                },
-                "userDetail": {
-                    "$ref": "#/definitions/database_model.UserDetail"
-                },
-                "userDetailID": {
-                    "type": "integer"
-                }
-            }
-        },
-        "database_model.UserDetail": {
-            "type": "object",
-            "properties": {
-                "address_line_1": {
-                    "type": "string"
-                },
-                "address_line_2": {
-                    "type": "string"
-                },
-                "city": {
-                    "type": "string"
-                },
-                "country": {
-                    "type": "string"
-                },
-                "createdAt": {
-                    "type": "string"
-                },
-                "date_of_birth": {
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "$ref": "#/definitions/gorm.DeletedAt"
-                },
-                "document_number": {
-                    "type": "string"
-                },
-                "document_type": {
-                    "type": "string"
-                },
-                "expiry_date": {
-                    "type": "string"
-                },
-                "gender": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "identity_and_selfie_image_url": {
-                    "type": "string"
-                },
-                "identity_image_url": {
-                    "type": "string"
-                },
-                "indonesiaArea": {
-                    "$ref": "#/definitions/database_model.IndonesiaArea"
-                },
-                "indonesiaAreaID": {
-                    "type": "integer"
-                },
-                "issue_date": {
-                    "type": "string"
-                },
-                "selfie_image_url": {
-                    "type": "string"
-                },
-                "state": {
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "type": "string"
-                },
-                "zip_code": {
-                    "type": "integer"
                 }
             }
         },
