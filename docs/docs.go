@@ -538,6 +538,231 @@ const docTemplate = `{
                 "tags": [
                     "User"
                 ],
+                "summary": "Update user's detail",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "address_line_1",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "address_line_2",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "city",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "country",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createdAt",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "date_of_birth",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "document_number",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "document_type",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "expiry_date",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "gender",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "id",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "identity_and_selfie_image_url",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "identity_image_url",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "indonesiaAreaID",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "issue_date",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "selfie_image_url",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "state",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updatedAt",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userID",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "zip_code",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-detail/update-identity-and-selfie-image": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used to process kyc",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user's selfie + identity image",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "User image that will be saved to the database_model",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-detail/update-identity-image": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used to process kyc",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user's identify image",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "User image that will be saved to the database_model",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-detail/update-selfie-image": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used to process kyc",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
                 "summary": "Update user's selfie image",
                 "parameters": [
                     {
