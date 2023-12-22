@@ -4,17 +4,17 @@ definitions:
     properties:
       email:
         type: string
-      is_email_verified:
+      isEmailVerified:
         type: boolean
-      is_phone_verified:
+      isPhoneVerified:
         type: boolean
-      is_pin_registered:
+      isPinRegistered:
         type: boolean
-      is_registered:
+      isRegistered:
         type: boolean
-      is_user_exist:
+      isUserExist:
         type: boolean
-      phone_number:
+      phoneNumber:
         type: string
     type: object
   api_response_model.JwtResponse:
@@ -199,19 +199,19 @@ paths:
         required: true
         type: string
       - in: formData
-        name: app_build_version
+        name: appBuildVersion
         type: integer
       - in: formData
-        name: app_name_version
+        name: appNameVersion
         type: string
       - in: formData
         name: credential
         type: string
       - in: formData
-        name: device_identifier
+        name: deviceIdentifier
         type: string
       - in: formData
-        name: device_model
+        name: deviceModel
         type: string
       - in: formData
         name: email
@@ -220,10 +220,10 @@ paths:
         name: name
         type: string
       - in: formData
-        name: os_version
+        name: osVersion
         type: string
       - in: formData
-        name: phone_number
+        name: phoneNumber
         type: string
       - in: formData
         name: platform
@@ -250,28 +250,28 @@ paths:
         required: true
         type: string
       - in: formData
-        name: app_build_version
+        name: appBuildVersion
         type: integer
       - in: formData
-        name: app_name_version
+        name: appNameVersion
         type: string
       - in: formData
         name: credential
         type: string
       - in: formData
-        name: device_identifier
+        name: deviceIdentifier
         type: string
       - in: formData
-        name: device_model
+        name: deviceModel
         type: string
       - in: formData
-        name: os_version
+        name: osVersion
         type: string
       - in: formData
         name: platform
         type: string
       - in: formData
-        name: request_id
+        name: requestId
         type: string
       produces:
       - application/json
@@ -636,7 +636,7 @@ paths:
         type: string
       - description: Email that will be saved to the database_model
         in: formData
-        name: new_email
+        name: newEmail
         required: true
         type: string
       - description: OTP for authentication (if pin already exist)
@@ -670,7 +670,7 @@ paths:
         type: string
       - description: Phone number that will be saved to the database_model
         in: formData
-        name: phone_number
+        name: phoneNumber
         required: true
         type: string
       - description: OTP for authentication (if pin already exist)
@@ -796,7 +796,7 @@ paths:
         type: string
       - description: Phone number that will be verified
         in: formData
-        name: phone_number
+        name: phoneNumber
         required: true
         type: string
       - description: OTP for authentication (if pin already exist)

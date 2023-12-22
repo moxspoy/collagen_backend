@@ -152,12 +152,12 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "name": "app_build_version",
+                        "name": "appBuildVersion",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "name": "app_name_version",
+                        "name": "appNameVersion",
                         "in": "formData"
                     },
                     {
@@ -167,12 +167,12 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "device_identifier",
+                        "name": "deviceIdentifier",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "name": "device_model",
+                        "name": "deviceModel",
                         "in": "formData"
                     },
                     {
@@ -187,12 +187,12 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "os_version",
+                        "name": "osVersion",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "name": "phone_number",
+                        "name": "phoneNumber",
                         "in": "formData"
                     },
                     {
@@ -234,12 +234,12 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "name": "app_build_version",
+                        "name": "appBuildVersion",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "name": "app_name_version",
+                        "name": "appNameVersion",
                         "in": "formData"
                     },
                     {
@@ -249,17 +249,17 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "device_identifier",
+                        "name": "deviceIdentifier",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "name": "device_model",
+                        "name": "deviceModel",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "name": "os_version",
+                        "name": "osVersion",
                         "in": "formData"
                     },
                     {
@@ -269,7 +269,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "request_id",
+                        "name": "requestId",
                         "in": "formData"
                     }
                 ],
@@ -853,7 +853,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Email that will be saved to the database_model",
-                        "name": "new_email",
+                        "name": "newEmail",
                         "in": "formData",
                         "required": true
                     },
@@ -903,7 +903,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Phone number that will be saved to the database_model",
-                        "name": "phone_number",
+                        "name": "phoneNumber",
                         "in": "formData",
                         "required": true
                     },
@@ -1097,7 +1097,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Phone number that will be verified",
-                        "name": "phone_number",
+                        "name": "phoneNumber",
                         "in": "formData",
                         "required": true
                     },
@@ -1126,22 +1126,22 @@ const docTemplate = `{
                 "email": {
                     "type": "string"
                 },
-                "is_email_verified": {
+                "isEmailVerified": {
                     "type": "boolean"
                 },
-                "is_phone_verified": {
+                "isPhoneVerified": {
                     "type": "boolean"
                 },
-                "is_pin_registered": {
+                "isPinRegistered": {
                     "type": "boolean"
                 },
-                "is_registered": {
+                "isRegistered": {
                     "type": "boolean"
                 },
-                "is_user_exist": {
+                "isUserExist": {
                     "type": "boolean"
                 },
-                "phone_number": {
+                "phoneNumber": {
                     "type": "string"
                 }
             }
