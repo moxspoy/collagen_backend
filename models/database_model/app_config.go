@@ -4,10 +4,10 @@ import "gorm.io/gorm"
 
 type AppConfig struct {
 	gorm.Model
-	Id         uint   `json:"id" gorm:"primary_key"`
-	Key        string `json:"key"`
-	Value      string `json:"value"`
-	LastUpdate string `json:"last_update"`
+	Id         uint `json:"id" gorm:"primary_key"`
+	Key        string
+	Value      string
+	LastUpdate string
 }
 
 func (AppConfig) TableName() string {
@@ -15,9 +15,9 @@ func (AppConfig) TableName() string {
 }
 
 type AppConfigResponse struct {
-	CustomerFriendPhoneNumber string `json:"customer_friend_phone_number"`
-	Maintenance               string `json:"maintenance"`
-	MinimumVersion            string `json:"minimum_version"`
-	OperatingTimeWeekday      string `json:"operating_time_weekday"`
-	OperatingTimeWeekend      string `json:"operating_time_weekend"`
+	CustomerFriendPhoneNumber string
+	Maintenance               string
+	MinimumVersion            string
+	OperatingTimeWeekday      string
+	OperatingTimeWeekend      string
 }

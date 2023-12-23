@@ -152,12 +152,12 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "name": "app_build_version",
+                        "name": "appBuildVersion",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "name": "app_name_version",
+                        "name": "appNameVersion",
                         "in": "formData"
                     },
                     {
@@ -167,12 +167,12 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "device_identifier",
+                        "name": "deviceIdentifier",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "name": "device_model",
+                        "name": "deviceModel",
                         "in": "formData"
                     },
                     {
@@ -187,12 +187,12 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "os_version",
+                        "name": "osVersion",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "name": "phone_number",
+                        "name": "phoneNumber",
                         "in": "formData"
                     },
                     {
@@ -234,12 +234,12 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "name": "app_build_version",
+                        "name": "appBuildVersion",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "name": "app_name_version",
+                        "name": "appNameVersion",
                         "in": "formData"
                     },
                     {
@@ -249,17 +249,17 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "device_identifier",
+                        "name": "deviceIdentifier",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "name": "device_model",
+                        "name": "deviceModel",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "name": "os_version",
+                        "name": "osVersion",
                         "in": "formData"
                     },
                     {
@@ -269,7 +269,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "request_id",
+                        "name": "requestId",
                         "in": "formData"
                     }
                 ],
@@ -538,6 +538,231 @@ const docTemplate = `{
                 "tags": [
                     "User"
                 ],
+                "summary": "Update user's detail",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "address_line_1",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "address_line_2",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "city",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "country",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createdAt",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "date_of_birth",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "document_number",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "document_type",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "expiry_date",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "gender",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "id",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "identity_and_selfie_image_url",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "identity_image_url",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "indonesiaAreaID",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "issue_date",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "selfie_image_url",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "state",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updatedAt",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userID",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "zip_code",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-detail/update-identity-and-selfie-image": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used to process kyc",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user's selfie + identity image",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "User image that will be saved to the database_model",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-detail/update-identity-image": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used to process kyc",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user's identify image",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "User image that will be saved to the database_model",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-detail/update-selfie-image": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used to process kyc",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
                 "summary": "Update user's selfie image",
                 "parameters": [
                     {
@@ -628,7 +853,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Email that will be saved to the database_model",
-                        "name": "new_email",
+                        "name": "newEmail",
                         "in": "formData",
                         "required": true
                     },
@@ -678,7 +903,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Phone number that will be saved to the database_model",
-                        "name": "phone_number",
+                        "name": "phoneNumber",
                         "in": "formData",
                         "required": true
                     },
@@ -793,6 +1018,56 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/verify-email": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Usually this endpoint used as part of onboarding. Note that user need to request otp first.",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Verify user's email",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Api Key",
+                        "name": "api_key",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Email that will be verified",
+                        "name": "email",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OTP for authentication (if pin already exist)",
+                        "name": "otp",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api_response_model.SuccessAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/user/verify-phone-number": {
             "put": {
                 "security": [
@@ -822,7 +1097,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Phone number that will be verified",
-                        "name": "phone_number",
+                        "name": "phoneNumber",
                         "in": "formData",
                         "required": true
                     },
@@ -851,22 +1126,22 @@ const docTemplate = `{
                 "email": {
                     "type": "string"
                 },
-                "is_email_verified": {
+                "isEmailVerified": {
                     "type": "boolean"
                 },
-                "is_phone_verified": {
+                "isPhoneVerified": {
                     "type": "boolean"
                 },
-                "is_pin_registered": {
+                "isPinRegistered": {
                     "type": "boolean"
                 },
-                "is_registered": {
+                "isRegistered": {
                     "type": "boolean"
                 },
-                "is_user_exist": {
+                "isUserExist": {
                     "type": "boolean"
                 },
-                "phone_number": {
+                "phoneNumber": {
                     "type": "string"
                 }
             }
@@ -900,19 +1175,19 @@ const docTemplate = `{
         "database_model.AppConfigResponse": {
             "type": "object",
             "properties": {
-                "customer_friend_phone_number": {
+                "customerFriendPhoneNumber": {
                     "type": "string"
                 },
                 "maintenance": {
                     "type": "string"
                 },
-                "minimum_version": {
+                "minimumVersion": {
                     "type": "string"
                 },
-                "operating_time_weekday": {
+                "operatingTimeWeekday": {
                     "type": "string"
                 },
-                "operating_time_weekend": {
+                "operatingTimeWeekend": {
                     "type": "string"
                 }
             }
@@ -944,55 +1219,6 @@ const docTemplate = `{
                 }
             }
         },
-        "database_model.University": {
-            "type": "object",
-            "required": [
-                "name"
-            ],
-            "properties": {
-                "acronym": {
-                    "type": "string"
-                },
-                "category": {
-                    "description": "State owned (1) or private (2)",
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "$ref": "#/definitions/gorm.DeletedAt"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "indonesiaArea": {
-                    "$ref": "#/definitions/database_model.IndonesiaArea"
-                },
-                "indonesiaAreaID": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "nameEn": {
-                    "type": "string"
-                },
-                "status": {
-                    "description": "Active (1) or Not Active (2)",
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "type": "string"
-                },
-                "website": {
-                    "type": "string"
-                },
-                "yearFounded": {
-                    "type": "integer"
-                }
-            }
-        },
         "database_model.User": {
             "type": "object",
             "properties": {
@@ -1005,7 +1231,7 @@ const docTemplate = `{
                 "email": {
                     "$ref": "#/definitions/sql.NullString"
                 },
-                "email_verification_status": {
+                "emailVerificationStatus": {
                     "type": "integer"
                 },
                 "id": {
@@ -1014,97 +1240,17 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
-                "phone_number": {
+                "phoneNumber": {
                     "$ref": "#/definitions/sql.NullString"
                 },
-                "phone_verification_status": {
+                "phoneVerificationStatus": {
                     "type": "integer"
                 },
                 "status": {
                     "type": "integer"
                 },
-                "university": {
-                    "$ref": "#/definitions/database_model.University"
-                },
-                "universityID": {
-                    "type": "integer"
-                },
                 "updatedAt": {
                     "type": "string"
-                },
-                "userDetail": {
-                    "$ref": "#/definitions/database_model.UserDetail"
-                },
-                "userDetailID": {
-                    "type": "integer"
-                }
-            }
-        },
-        "database_model.UserDetail": {
-            "type": "object",
-            "properties": {
-                "address_line_1": {
-                    "type": "string"
-                },
-                "address_line_2": {
-                    "type": "string"
-                },
-                "city": {
-                    "type": "string"
-                },
-                "country": {
-                    "type": "string"
-                },
-                "createdAt": {
-                    "type": "string"
-                },
-                "date_of_birth": {
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "$ref": "#/definitions/gorm.DeletedAt"
-                },
-                "document_number": {
-                    "type": "string"
-                },
-                "document_type": {
-                    "type": "string"
-                },
-                "expiry_date": {
-                    "type": "string"
-                },
-                "gender": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "identity_and_selfie_image_url": {
-                    "type": "string"
-                },
-                "identity_image_url": {
-                    "type": "string"
-                },
-                "indonesiaArea": {
-                    "$ref": "#/definitions/database_model.IndonesiaArea"
-                },
-                "indonesiaAreaID": {
-                    "type": "integer"
-                },
-                "issue_date": {
-                    "type": "string"
-                },
-                "selfie_image_url": {
-                    "type": "string"
-                },
-                "state": {
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "type": "string"
-                },
-                "zip_code": {
-                    "type": "integer"
                 }
             }
         },

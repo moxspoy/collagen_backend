@@ -9,7 +9,6 @@ import (
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"log"
 	"net/http"
 )
 
@@ -23,12 +22,12 @@ import (
 //	@Success		200	{object}	api_response_model.SuccessAPIResponse
 //	@Router			/user/update-email [put]
 //	@Param			api_key	header string	true "Api Key"
-//	@Param			new_email formData string	true "Email that will be saved to the database_model"
+//	@Param			newEmail formData string	true "Email that will be saved to the database_model"
 //	@Param			otp formData string	false "OTP for authentication (if pin already exist)"
 //	@Security		ApiKeyAuth
 func UpdateEmail(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 	userId := middleware.GetUserIdFromJWT(c)
-	newEmail := c.Request.FormValue("new_email")
+	newEmail := c.Request.FormValue("newEmail")
 	otp := c.Request.FormValue("otp")
 
 	// Validation
@@ -61,7 +60,6 @@ func UpdateEmail(c *gin.Context, authMiddleware *jwt.GinJWTMiddleware) {
 	user = database_model.User{}
 	user_repository.UpdateUserEmail(&user, userId, newEmail)
 
-	log.Print("hehe", user)
 	newJWT, _, err := authMiddleware.TokenGenerator(&user)
 
 	if err != nil {

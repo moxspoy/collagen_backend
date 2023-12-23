@@ -7,12 +7,11 @@ import (
 
 type OneTimePassword struct {
 	gorm.Model
-	ID        uint      `json:"id" gorm:"primary_key"`
-	UserID    uint      `json:"user_id"`
-	User      User      `json:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	Token     string    `json:"-"`
-	ExpiredAt time.Time `json:"expired_at"`
-	Status    int       `json:"status"`
+	UserID    uint
+	User      User   `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Token     string `json:"-"`
+	ExpiredAt time.Time
+	Status    int
 }
 
 func (OneTimePassword) TableName() string {

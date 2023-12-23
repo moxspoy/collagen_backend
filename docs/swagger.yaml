@@ -4,17 +4,17 @@ definitions:
     properties:
       email:
         type: string
-      is_email_verified:
+      isEmailVerified:
         type: boolean
-      is_phone_verified:
+      isPhoneVerified:
         type: boolean
-      is_pin_registered:
+      isPinRegistered:
         type: boolean
-      is_registered:
+      isRegistered:
         type: boolean
-      is_user_exist:
+      isUserExist:
         type: boolean
-      phone_number:
+      phoneNumber:
         type: string
     type: object
   api_response_model.JwtResponse:
@@ -36,15 +36,15 @@ definitions:
     type: object
   database_model.AppConfigResponse:
     properties:
-      customer_friend_phone_number:
+      customerFriendPhoneNumber:
         type: string
       maintenance:
         type: string
-      minimum_version:
+      minimumVersion:
         type: string
-      operating_time_weekday:
+      operatingTimeWeekday:
         type: string
-      operating_time_weekend:
+      operatingTimeWeekend:
         type: string
     type: object
   database_model.IndonesiaArea:
@@ -65,39 +65,6 @@ definitions:
     - code
     - name
     type: object
-  database_model.University:
-    properties:
-      acronym:
-        type: string
-      category:
-        description: State owned (1) or private (2)
-        type: integer
-      createdAt:
-        type: string
-      deletedAt:
-        $ref: '#/definitions/gorm.DeletedAt'
-      id:
-        type: integer
-      indonesiaArea:
-        $ref: '#/definitions/database_model.IndonesiaArea'
-      indonesiaAreaID:
-        type: integer
-      name:
-        type: string
-      nameEn:
-        type: string
-      status:
-        description: Active (1) or Not Active (2)
-        type: integer
-      updatedAt:
-        type: string
-      website:
-        type: string
-      yearFounded:
-        type: integer
-    required:
-    - name
-    type: object
   database_model.User:
     properties:
       createdAt:
@@ -106,73 +73,20 @@ definitions:
         $ref: '#/definitions/gorm.DeletedAt'
       email:
         $ref: '#/definitions/sql.NullString'
-      email_verification_status:
+      emailVerificationStatus:
         type: integer
       id:
         type: integer
       name:
         type: string
-      phone_number:
+      phoneNumber:
         $ref: '#/definitions/sql.NullString'
-      phone_verification_status:
+      phoneVerificationStatus:
         type: integer
       status:
         type: integer
-      university:
-        $ref: '#/definitions/database_model.University'
-      universityID:
-        type: integer
       updatedAt:
         type: string
-      userDetail:
-        $ref: '#/definitions/database_model.UserDetail'
-      userDetailID:
-        type: integer
-    type: object
-  database_model.UserDetail:
-    properties:
-      address_line_1:
-        type: string
-      address_line_2:
-        type: string
-      city:
-        type: string
-      country:
-        type: string
-      createdAt:
-        type: string
-      date_of_birth:
-        type: string
-      deletedAt:
-        $ref: '#/definitions/gorm.DeletedAt'
-      document_number:
-        type: string
-      document_type:
-        type: string
-      expiry_date:
-        type: string
-      gender:
-        type: string
-      id:
-        type: integer
-      identity_and_selfie_image_url:
-        type: string
-      identity_image_url:
-        type: string
-      indonesiaArea:
-        $ref: '#/definitions/database_model.IndonesiaArea'
-      indonesiaAreaID:
-        type: integer
-      issue_date:
-        type: string
-      selfie_image_url:
-        type: string
-      state:
-        type: string
-      updatedAt:
-        type: string
-      zip_code:
-        type: integer
     type: object
   gorm.DeletedAt:
     properties:
@@ -285,19 +199,19 @@ paths:
         required: true
         type: string
       - in: formData
-        name: app_build_version
+        name: appBuildVersion
         type: integer
       - in: formData
-        name: app_name_version
+        name: appNameVersion
         type: string
       - in: formData
         name: credential
         type: string
       - in: formData
-        name: device_identifier
+        name: deviceIdentifier
         type: string
       - in: formData
-        name: device_model
+        name: deviceModel
         type: string
       - in: formData
         name: email
@@ -306,10 +220,10 @@ paths:
         name: name
         type: string
       - in: formData
-        name: os_version
+        name: osVersion
         type: string
       - in: formData
-        name: phone_number
+        name: phoneNumber
         type: string
       - in: formData
         name: platform
@@ -336,28 +250,28 @@ paths:
         required: true
         type: string
       - in: formData
-        name: app_build_version
+        name: appBuildVersion
         type: integer
       - in: formData
-        name: app_name_version
+        name: appNameVersion
         type: string
       - in: formData
         name: credential
         type: string
       - in: formData
-        name: device_identifier
+        name: deviceIdentifier
         type: string
       - in: formData
-        name: device_model
+        name: deviceModel
         type: string
       - in: formData
-        name: os_version
+        name: osVersion
         type: string
       - in: formData
         name: platform
         type: string
       - in: formData
-        name: request_id
+        name: requestId
         type: string
       produces:
       - application/json
@@ -531,6 +445,145 @@ paths:
         name: api_key
         required: true
         type: string
+      - in: formData
+        name: address_line_1
+        type: string
+      - in: formData
+        name: address_line_2
+        type: string
+      - in: formData
+        name: city
+        type: string
+      - in: formData
+        name: country
+        type: string
+      - in: formData
+        name: createdAt
+        type: string
+      - in: formData
+        name: date_of_birth
+        type: string
+      - in: formData
+        name: document_number
+        type: string
+      - in: formData
+        name: document_type
+        type: string
+      - in: formData
+        name: expiry_date
+        type: string
+      - in: formData
+        name: gender
+        type: string
+      - in: formData
+        name: id
+        type: integer
+      - in: formData
+        name: identity_and_selfie_image_url
+        type: string
+      - in: formData
+        name: identity_image_url
+        type: string
+      - in: formData
+        name: indonesiaAreaID
+        type: integer
+      - in: formData
+        name: issue_date
+        type: string
+      - in: formData
+        name: selfie_image_url
+        type: string
+      - in: formData
+        name: state
+        type: string
+      - in: formData
+        name: updatedAt
+        type: string
+      - in: formData
+        name: userID
+        type: integer
+      - in: formData
+        name: zip_code
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Update user's detail
+      tags:
+      - User
+  /user-detail/update-identity-and-selfie-image:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Usually this endpoint used to process kyc
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: User image that will be saved to the database_model
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Update user's selfie + identity image
+      tags:
+      - User
+  /user-detail/update-identity-image:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Usually this endpoint used to process kyc
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: User image that will be saved to the database_model
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Update user's identify image
+      tags:
+      - User
+  /user-detail/update-selfie-image:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Usually this endpoint used to process kyc
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
       - description: User image that will be saved to the database_model
         in: formData
         name: file
@@ -583,7 +636,7 @@ paths:
         type: string
       - description: Email that will be saved to the database_model
         in: formData
-        name: new_email
+        name: newEmail
         required: true
         type: string
       - description: OTP for authentication (if pin already exist)
@@ -617,7 +670,7 @@ paths:
         type: string
       - description: Phone number that will be saved to the database_model
         in: formData
-        name: phone_number
+        name: phoneNumber
         required: true
         type: string
       - description: OTP for authentication (if pin already exist)
@@ -696,6 +749,39 @@ paths:
       summary: Update user's name
       tags:
       - User
+  /user/verify-email:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Usually this endpoint used as part of onboarding. Note that user
+        need to request otp first.
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: Email that will be verified
+        in: formData
+        name: email
+        required: true
+        type: string
+      - description: OTP for authentication (if pin already exist)
+        in: formData
+        name: otp
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Verify user's email
+      tags:
+      - User
   /user/verify-phone-number:
     put:
       consumes:
@@ -710,7 +796,7 @@ paths:
         type: string
       - description: Phone number that will be verified
         in: formData
-        name: phone_number
+        name: phoneNumber
         required: true
         type: string
       - description: OTP for authentication (if pin already exist)

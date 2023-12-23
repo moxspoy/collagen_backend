@@ -11,14 +11,14 @@ const (
 
 type User struct {
 	gorm.Model
-	Email                   sql.NullString `json:"email" gorm:"unique"`
-	PhoneNumber             sql.NullString `json:"phone_number" gorm:"unique"`
-	Name                    string         `json:"name"`
-	Password                string         `json:"-"`
-	Pin                     string         `json:"-"`
-	Status                  int            `json:"status"`
-	PhoneVerificationStatus int            `json:"phone_verification_status"`
-	EmailVerificationStatus int            `json:"email_verification_status"`
+	Email                   sql.NullString `gorm:"unique"`
+	PhoneNumber             sql.NullString `gorm:"unique"`
+	Name                    string
+	Password                string `json:"-"`
+	Pin                     string `json:"-"`
+	Status                  int
+	PhoneVerificationStatus int
+	EmailVerificationStatus int
 }
 
 func (User) TableName() string {

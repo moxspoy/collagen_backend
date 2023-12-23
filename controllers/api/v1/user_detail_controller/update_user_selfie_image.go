@@ -13,7 +13,7 @@ import (
 //	@Accept			multipart/form-data
 //	@Produce		json
 //	@Success		200	{object}	api_response_model.SuccessAPIResponse
-//	@Router			/user-detail/update [put]
+//	@Router			/user-detail/update-selfie-image [put]
 //	@Param			api_key	header string	true "Api Key"
 //	@Param			file formData file	true "User image that will be saved to the database_model"
 //	@Security		ApiKeyAuth

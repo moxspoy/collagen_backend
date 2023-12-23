@@ -18,7 +18,7 @@ import (
 //	@Accept			multipart/form-data
 //	@Produce		json
 //	@Success		200	{object}	api_response_model.SuccessAPIResponse
-//	@Router			/user/verify-phone-number [put]
+//	@Router			/user/verify-email [put]
 //	@Param			api_key	header string	true "Api Key"
 //	@Param			email formData string	true "Email that will be verified"
 //	@Param			otp formData string	false "OTP for authentication (if pin already exist)"

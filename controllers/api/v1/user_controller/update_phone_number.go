@@ -20,12 +20,12 @@ import (
 //	@Success		200	{object}	api_response_model.SuccessAPIResponse
 //	@Router			/user/update-phone-number [put]
 //	@Param			api_key	header string	true "Api Key"
-//	@Param			phone_number formData string	true "Phone number that will be saved to the database_model"
+//	@Param			phoneNumber formData string	true "Phone number that will be saved to the database_model"
 //	@Param			otp formData string	false "OTP for authentication (if pin already exist)"
 //	@Security		ApiKeyAuth
 func UpdatePhoneNumber(c *gin.Context) {
 	currentUserId := middleware.GetUserIdFromJWT(c)
-	phoneNumber := c.Request.FormValue("phone_number")
+	phoneNumber := c.Request.FormValue("phoneNumber")
 	otp := c.Request.FormValue("otp")
 
 	if phoneNumber == "" {
