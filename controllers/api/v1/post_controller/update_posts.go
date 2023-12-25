@@ -18,7 +18,7 @@ import (
 // @Success	200	{object} api_response_model.SuccessAPIResponse
 // @Router /posts/{id} [put]
 // @Param api_key	header string	true "Api Key"
-// @Param post body models.Post true "Updated post object"
+// @Param post body database_model.Post true "Updated post object"
 // @Param id path int true "Post ID"
 func UpdatePost(c *gin.Context) {
 	postID, _ := strconv.Atoi(c.Param("id"))

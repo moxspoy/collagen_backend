@@ -18,7 +18,7 @@ import (
 //	@Router			/posts [post]
 //	@Param			api_key	header string	true "Api Key"
 //
-// @Param post body models.Post true "Post object"
+// @Param post body database_model.Post true "Post object"
 func CreatePost(c *gin.Context) {
 	var newPost database_model.Post
 
