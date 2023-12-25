@@ -7,5 +7,5 @@ import (
 )
 
 func UpdatePost(post database_model.Post) *gorm.DB {
-	return database.DB.Save(post)
+	return database.DB.Save(&post)
 }
