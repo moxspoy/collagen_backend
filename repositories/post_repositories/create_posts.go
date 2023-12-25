@@ -7,5 +7,5 @@ import (
 )
 
 func CreatePost(post database_model.Post) *gorm.DB {
-	return database.DB.Create(post)
+	return database.DB.Create(&post)
 }
