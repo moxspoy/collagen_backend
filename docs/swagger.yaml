@@ -65,6 +65,35 @@ definitions:
     - code
     - name
     type: object
+  database_model.Post:
+    properties:
+      content:
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      imageURL:
+        type: string
+      numDislikes:
+        type: integer
+      numLikes:
+        type: integer
+      numReports:
+        type: integer
+      numShares:
+        type: integer
+      title:
+        type: string
+      updatedAt:
+        type: string
+      user:
+        $ref: '#/definitions/database_model.User'
+      userID:
+        type: integer
+    type: object
   database_model.User:
     properties:
       createdAt:
@@ -334,6 +363,190 @@ paths:
       summary: Request OTP
       tags:
       - OTP
+  /post/trending:
+    get:
+      consumes:
+      - application/json
+      description: Get posts that are currently trending based on likes, comments,
+        and shares within a time frame
+      parameters:
+      - description: Time duration for trending calculation (e.g., 24h)
+        in: query
+        name: duration
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      summary: Get trending posts
+  /posts:
+    post:
+      consumes:
+      - application/json
+      description: Create a new post
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: Post object
+        in: body
+        name: post
+        required: true
+        schema:
+          $ref: '#/definitions/database_model.Post'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      summary: Create a new post
+      tags:
+      - Post
+  /posts/:
+    get:
+      consumes:
+      - application/json
+      description: Get posts with pagination
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Number of items per page
+        in: query
+        name: limit
+        type: integer
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      summary: Get posts with pagination
+      tags:
+      - Post
+  /posts/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an existing post
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      summary: Delete an existing post
+      tags:
+      - Post
+    put:
+      consumes:
+      - application/json
+      description: Update an existing post
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: Updated post object
+        in: body
+        name: post
+        required: true
+        schema:
+          $ref: '#/definitions/database_model.Post'
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      summary: Update an existing post
+      tags:
+      - Post
+  /posts/dislike:
+    post:
+      consumes:
+      - application/json
+      description: Dislike a post by decrementing the number of likes
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      summary: Dislike a post
+      tags:
+      - Post
+  /posts/like:
+    post:
+      consumes:
+      - application/json
+      description: Like a post by incrementing the number of likes
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      summary: Like a post
+      tags:
+      - Post
   /universities/all:
     get:
       description: This endpoint used to fetch all universities data

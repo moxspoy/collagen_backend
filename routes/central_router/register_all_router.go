@@ -5,6 +5,7 @@ import (
 	"collagen/middleware"
 	"collagen/routes/auth_router"
 	"collagen/routes/otp_router"
+	"collagen/routes/post_router"
 	"collagen/routes/public_router"
 	"collagen/routes/swagger_router"
 	"collagen/routes/universities_router"
@@ -42,5 +43,6 @@ func RegisterAllRouter(router *gin.Engine) {
 	user_detail_router.RegisterUserDetailRouter(v1Router, authMiddleware)
 	otp_router.RegisterOtpRouter(v1Router, authMiddleware)
 	universities_router.RegisterUniversitiesRouter(v1Router, authMiddleware)
+	post_router.RegisterPostRouter(v1Router, authMiddleware)
 	swagger_router.RegisterSwaggerRouter(router)
 }
