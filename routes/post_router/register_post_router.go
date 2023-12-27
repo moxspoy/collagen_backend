@@ -16,5 +16,6 @@ func RegisterPostRouter(v1Router *gin.RouterGroup, authMiddleware *jwt.GinJWTMid
 		postRouter.PUT("/:id", post_controller.UpdatePost)
 		postRouter.GET("/trending", post_controller.GetTrendingPosts)
 		postRouter.POST("/like", post_controller.LikePost)
+		postRouter.POST("/dislike", post_controller.DislikePost)
 	}
 }
