@@ -495,6 +495,32 @@ paths:
       summary: Update an existing post
       tags:
       - Post
+  /posts/dislike:
+    post:
+      consumes:
+      - application/json
+      description: Dislike a post by decrementing the number of likes
+      parameters:
+      - description: Api Key
+        in: header
+        name: api_key
+        required: true
+        type: string
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_response_model.SuccessAPIResponse'
+      summary: Dislike a post
+      tags:
+      - Post
   /posts/like:
     post:
       consumes:
