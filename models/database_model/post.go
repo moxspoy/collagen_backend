@@ -9,7 +9,7 @@ type Post struct {
 	Title       string `gorm:"not null"`
 	Content     string `gorm:"not null"`
 	UserID      uint   `gorm:"not null"`
-	User        User   `gorm:"foreignKey:UserID"`
+	User        User   `gorm:"foreignKey:UserID" json:"-"`
 	NumLikes    uint   `gorm:"default:0"`
 	NumDislikes uint   `gorm:"default:0"`
 	NumReports  uint   `gorm:"default:0"`
