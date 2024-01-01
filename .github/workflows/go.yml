@@ -22,10 +22,16 @@ jobs:
         go-version: '1.20'
 
     - name: Build
-      run: go build -v ./...
+      run: |
+        touch .env
+        echo API_KEY=${{ secrets.API_KEY }} >> .env
+        echo JWT_KEY=${{ secrets.JWT_KEY }} >> .env
+        go build -v ./...
 
     - name: Test
-      env: # Or as an environment variable
-        API_KEY: ${{ secrets.API_KEY }}
-      run: go test -v ./...
+      run: |
+        touch .env
+        echo API_KEY=${{ secrets.API_KEY }} >> .env
+        echo JWT_KEY=${{ secrets.JWT_KEY }} >> .env
+        go test -v ./...
 
