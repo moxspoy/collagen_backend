@@ -24,7 +24,8 @@ func TestAppConfigController(t *testing.T) {
 		if err != nil {
 			return
 		}
-		assert.Equal(t, "", "")
+		assert.Equal(t, appConfig.CustomerFriendPhoneNumber, "+622150928839")
+		assert.Equal(t, appConfig.Maintenance, "false")
 	})
 
 }
