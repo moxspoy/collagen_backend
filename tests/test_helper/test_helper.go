@@ -32,8 +32,13 @@ func SetupServerBeforeTest() *gin.Engine {
 	// Create a temporary in-memory database for testing
 	database.DB, _ = database.SetupTestDB()
 	err = database.RunAutoMigration(database.DB)
+
 	if err != nil {
 		return nil
+	}
+	err = database.MigrateAppConfig()
+	if err != nil {
+		log.Fatal("Migration App Config Error:" + err.Error())
 	}
 	return router
 }
