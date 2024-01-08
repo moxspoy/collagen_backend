@@ -6,6 +6,12 @@ type SuccessAPIResponse struct {
 	Data    any    `json:"data"`
 }
 
+type SuccessAPIResponseWithToken struct {
+	Code    int                  `json:"code"`
+	Message string               `json:"message"`
+	Data    WithJwtTokenResponse `json:"data"`
+}
+
 type SuccessAPIResponseMessageOnly struct {
 	Message string `json:"message"`
 }

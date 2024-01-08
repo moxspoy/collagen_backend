@@ -30,4 +30,8 @@ func SetupDatabase() {
 	if err != nil {
 		log.Fatal("Migration Error:" + err.Error())
 	}
+	err = MigrateAppConfig()
+	if err != nil {
+		log.Fatal("Migration App Config Error:" + err.Error())
+	}
 }
