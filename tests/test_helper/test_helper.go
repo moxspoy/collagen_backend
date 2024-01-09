@@ -64,7 +64,7 @@ func RequestApiForTest(router *gin.Engine, method string, url string, body io.Re
 			ID: 1,
 		},
 		Email: sql.NullString{
-			String: "ikrimah@gmail.com",
+			String: "eqi@gmail.com",
 			Valid:  true,
 		},
 	}
