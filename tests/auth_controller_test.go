@@ -43,7 +43,23 @@ func TestAuthController(t *testing.T) {
 
 		token = response.Data.Token
 		assert.Equal(t, response.Message, "success register")
-		fmt.Print("token", token)
+	})
+
+	t.Run("Refresh Token", func(t *testing.T) {
+
+		w := test_helper.RequestApiWithTokenForTest(router, "POST", "/api/v1/auth/refresh-token", nil, token)
+
+		var response api_response_model.JwtResponse
+		err := json.Unmarshal(w.Body.Bytes(), &response)
+		if err != nil {
+			return
+		}
+
+		assert.Equal(t, http.StatusOK, w.Code)
+		newToken := response.Token
+		//assert.NotEqual(t, newToken, token)
+		fmt.Println("token: ", token)
+		fmt.Println("newToken: ", newToken)
 	})
 
 }
