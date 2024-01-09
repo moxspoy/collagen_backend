@@ -88,3 +88,16 @@ func RequestApiForTest(router *gin.Engine, method string, url string, body io.Re
 	router.ServeHTTP(w, req)
 	return w
 }
+
+func RequestApiWithTokenForTest(router *gin.Engine, method string, url string, body io.Reader, token string) *httptest.ResponseRecorder {
+	requiredApiKey := os.Getenv("API_KEY")
+
+	req, _ := http.NewRequest(method, url, body)
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("api_key", requiredApiKey)
+	req.Header.Set("Authorization", "Bearer "+token)
+
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+	return w
+}
