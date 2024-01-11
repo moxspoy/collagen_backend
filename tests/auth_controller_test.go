@@ -62,4 +62,31 @@ func TestAuthController(t *testing.T) {
 		fmt.Println("newToken: ", newToken)
 	})
 
+	t.Run("Sign In", func(t *testing.T) {
+
+		request := api_request_model.ValidateIdentityRequest{
+			Credential:       "eqi@gmail.com",
+			Platform:         "android",
+			DeviceModel:      "Mi 10T Pro",
+			AppNameVersion:   "1.0.0",
+			AppBuildVersion:  1,
+			OsVersion:        "12",
+			DeviceIdentifier: "DeviceIdentifier",
+			RequestId:        "RequestId",
+		}
+		requestJSON, _ := json.Marshal(request)
+
+		w := test_helper.RequestApiWithoutTokenForTest(router, "POST", "/api/v1/auth/validate-identity", strings.NewReader(string(requestJSON)))
+
+		var response api_response_model.JwtResponse
+		err := json.Unmarshal(w.Body.Bytes(), &response)
+		if err != nil {
+			return
+		}
+
+		assert.Equal(t, http.StatusOK, w.Code)
+		newToken := response.Token
+		fmt.Println("newToken: ", newToken)
+	})
+
 }
