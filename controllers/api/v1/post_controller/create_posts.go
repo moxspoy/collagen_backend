@@ -2,6 +2,7 @@ package post_controller
 
 import (
 	"collagen/helper/api_response_helper"
+	"collagen/middleware"
 	"collagen/models/database_model"
 	"collagen/repositories/post_repositories"
 	"github.com/gin-gonic/gin"
@@ -18,12 +19,14 @@ import (
 //	@Router			/posts [post]
 //	@Param			api_key	header string	true "Api Key"
 //
-// @Param post body database_model.Post true "Post object"
+// @Param data formData database_model.Post true "Post object"
 func CreatePost(c *gin.Context) {
-	var newPost database_model.Post
+	newPost := database_model.Post{
+		UserID: middleware.GetUserIdFromJWT(c),
+	}
 
 	// Bind the request body to the Post struct
-	if err := c.BindJSON(&newPost); err != nil {
+	if err := c.Bind(&newPost); err != nil {
 		api_response_helper.GenerateErrorResponse(c, err)
 		return
 	}
