@@ -31,7 +31,7 @@ func TestAuthController(t *testing.T) {
 		}
 		requestJSON, _ := json.Marshal(request)
 
-		w := test_helper.RequestApiForTest(router, "POST", "/api/v1/auth/sign-up", strings.NewReader(string(requestJSON)))
+		w := test_helper.RequestApiWithoutTokenForTest(router, "POST", "/api/v1/auth/sign-up", strings.NewReader(string(requestJSON)))
 
 		assert.Equal(t, http.StatusOK, w.Code)
 
