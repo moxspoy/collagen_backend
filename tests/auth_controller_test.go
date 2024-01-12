@@ -85,6 +85,9 @@ func TestAuthController(t *testing.T) {
 		}
 
 		assert.Equal(t, http.StatusOK, w.Code)
+		if response.Token == "" {
+			t.Error("Token is empty")
+		}
 		newToken := response.Token
 		fmt.Println("newToken: ", newToken)
 	})
