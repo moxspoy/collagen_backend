@@ -57,9 +57,8 @@ func TestAuthController(t *testing.T) {
 
 		assert.Equal(t, http.StatusOK, w.Code)
 		newToken := response.Token
-		//assert.NotEqual(t, newToken, token)
-		fmt.Println("token: ", token)
-		fmt.Println("newToken: ", newToken)
+		fmt.Println("registr_token: ", token)
+		fmt.Println("refresh_token: ", newToken)
 	})
 
 	t.Run("Sign In", func(t *testing.T) {
@@ -89,7 +88,7 @@ func TestAuthController(t *testing.T) {
 			t.Error("Token is empty")
 		}
 		newToken := response.Token
-		fmt.Println("newToken: ", newToken)
+		fmt.Println("signin_token: ", newToken)
 	})
 
 }
