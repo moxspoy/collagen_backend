@@ -16,6 +16,25 @@ func TestAuthController(t *testing.T) {
 	router := test_helper.SetupServerBeforeTest()
 	var token string
 
+	t.Run("Check Credential", func(t *testing.T) {
+		//request := ""
+		//requestJSON, _ := json.Marshal(request)
+		//
+		//w := test_helper.RequestApiWithoutTokenForTest(router, "POST", "/api/v1/auth/check-credential", strings.NewReader(string(requestJSON)))
+		//
+		//assert.Equal(t, http.StatusOK, w.Code)
+		//
+		//var response api_response_model.CheckCredentialResponse
+		//err := json.Unmarshal(w.Body.Bytes(), &response)
+		//if err != nil {
+		//	return
+		//}
+		//
+		//if response.IsUserExist == true {
+		//	t.Error("user should not registered")
+		//}
+	})
+
 	t.Run("Sign Up", func(t *testing.T) {
 		request := api_request_model.UserSignUpRequest{
 			Name:             "Eqi",
