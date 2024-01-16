@@ -113,3 +113,15 @@ func RequestApiWithoutTokenForTest(router *gin.Engine, method string, url string
 	router.ServeHTTP(w, req)
 	return w
 }
+
+func RequestApiWithFormDataWithoutTokenForTest(router *gin.Engine, method string, url string, body io.Reader) *httptest.ResponseRecorder {
+	requiredApiKey := os.Getenv("API_KEY")
+
+	req, _ := http.NewRequest(method, url, body)
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("api_key", requiredApiKey)
+
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+	return w
+}
