@@ -35,10 +35,6 @@ func TestAuthController(t *testing.T) {
 
 		w := test_helper.RequestApiWithFormDataWithoutTokenForTest(router, "POST", "/api/v1/auth/check-credential", strings.NewReader(formData.Encode()))
 
-		// Print information about the response (optional)
-		fmt.Println("Response Code:", w.Code)
-		fmt.Println("Response Body:", w.Body.String())
-
 		// Assertions and validations for the response
 		assert.Equal(t, http.StatusOK, w.Code)
 
@@ -132,4 +128,34 @@ func TestAuthController(t *testing.T) {
 		fmt.Println("signin_token: ", newToken)
 	})
 
+	t.Run("Check Correct Credential With User In Database", func(t *testing.T) {
+
+		// Prepare a sample form data
+		formData := url.Values{
+			"credential": {"eqi@gmail.com"},
+		}
+
+		w := test_helper.RequestApiWithFormDataWithoutTokenForTest(router, "POST", "/api/v1/auth/check-credential", strings.NewReader(formData.Encode()))
+
+		// Assertions and validations for the response
+		assert.Equal(t, http.StatusOK, w.Code)
+
+		// Parse the response body
+		var responseBody api_response_model.CheckCredentialResponse
+		err := json.Unmarshal(w.Body.Bytes(), &responseBody)
+		assert.NoError(t, err, "Error parsing response body")
+
+		// Print information about the response (optional)
+		fmt.Println("Response Code:", w.Code)
+		fmt.Println("Response Body:", w.Body.String())
+
+		// Example assertions based on the CheckCredentialResponse struct
+		assert.Equal(t, "eqi@gmail.com", responseBody.Email)
+		assert.False(t, responseBody.IsEmailVerified)
+		assert.False(t, responseBody.IsPhoneVerified)
+		assert.False(t, responseBody.IsPinRegistered)
+		assert.False(t, responseBody.IsRegistered)
+		assert.True(t, responseBody.IsUserExist)
+		assert.Equal(t, "", responseBody.PhoneNumber)
+	})
 }
