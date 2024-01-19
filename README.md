@@ -53,6 +53,7 @@ We welcome contributions to make Collagen even better! To contribute, follow the
 - **Gin Framework**: Fast and lightweight Golang web framework.
 - **Mysql**: MySQL database for storing user data and posts.
 - **Gow**: File watcher
+- **SQLite**: Database testing
 
 ## License
 
