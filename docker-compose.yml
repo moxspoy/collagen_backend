@@ -1,0 +1,30 @@
+version: '3'
+services:
+  percona:
+    image: percona:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootroot
+      MYSQL_DATABASE: collagen
+      MYSQL_USER: root
+  sqlite:
+    image: drupalci/sqlite-3:dev
+    volumes:
+      - ./data:/data
+    environment:
+      SQLITE_DATABASE: /data/sqlite.db
+  app:
+    image: golang:1.21.3
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "8083:8083"
+    environment:
+      - GOPATH=/go
+      - PATH=/go/bin:/usr/local/go/bin:$PATH
+    depends_on:
+      - percona
+      - sqlite
+    command: sh -c "go mod download && go run main.go"
