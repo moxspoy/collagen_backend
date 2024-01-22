@@ -20,6 +20,20 @@ Collagen is a social media platform tailored specifically for students, designed
 
 To run Collagen locally, follow these simple steps:
 
+### Using Docker
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/moxspoy/collagen_backend.git
+   cd collagen_backend
+   ```
+[config](.git%2Fconfig)
+2. **Start Docker:**
+   ```bash
+   docker-compose up
+   ```
+   Collagen will be accessible at `http://localhost:8083`.
+
+### Not Using Docker
 1. **Clone the Repository:**
    ```bash
    git clone https://github.com/moxspoy/collagen_backend.git
@@ -33,10 +47,8 @@ To run Collagen locally, follow these simple steps:
 
 3. **Run the Application:**[config](.git%2Fconfig)
    ```bash
-   go run main.go
+   gow run .
    ```
-
-   Collagen will be accessible at `http://localhost:8083`.
 
 ## Contributing
 
