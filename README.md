@@ -26,7 +26,7 @@ To run Collagen locally, follow these simple steps:
    git clone https://github.com/moxspoy/collagen_backend.git
    cd collagen_backend
    ```
-[config](.git%2Fconfig)
+
 2. **Start Docker:**
    ```bash
    docker-compose up
@@ -39,13 +39,13 @@ To run Collagen locally, follow these simple steps:
    git clone https://github.com/moxspoy/collagen_backend.git
    cd collagen_backend
    ```
-[config](.git%2Fconfig)
+
 2. **Install Dependencies:**
    ```bash
    go mod download
    ```
 
-3. **Run the Application:**[config](.git%2Fconfig)
+3. **Run the Application:**
    ```bash
    gow run .
    ```
