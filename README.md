@@ -50,6 +50,9 @@ To run Collagen locally, follow these simple steps:
    gow run .
    ```
 
+## Swagger
+You can see full API documentation through http://localhost:8083/swagger/index.html. This powered by https://github.com/swaggo/gin-swagger
+
 ## Contributing
 
 We welcome contributions to make Collagen even better! To contribute, follow these steps:
